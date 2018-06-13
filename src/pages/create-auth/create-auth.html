@@ -1,0 +1,100 @@
+<ion-header>
+
+  <ion-toolbar color='primary'>
+    <ion-title text-center>C O N T A</ion-title>
+
+    <ion-buttons left>
+      <button ion-button large clear icon-only (click)='backLogout()' [disabled]='isCreating'>
+        <ion-icon name='arrow-back' color='light'></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons right>
+      <button ion-button large clear icon-only>
+        <ion-icon name='ios-cloud' color='light'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar color='primary'>
+    <ion-title text-center>Criar conta com e-mail e senha</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content fullscreen>
+
+  <div class='back'>
+    <div padding class='titles'>
+      <h1 text-justify>Vamos começar</h1>
+      <h4 text-justify>Você irá precisar de um e-mail e de uma senha para se conectar futuramente</h4>
+    </div>
+
+    <ion-slides>
+      <ion-slide padding>
+        <p text-left class='tip'>Por favor, insira seu e-mail</p>
+
+        <form #emailForm='ngForm'>
+          <ion-item no-lines class='itemRound' mode='ios'>
+            <ion-icon item-start name='md-mail' color='icons'></ion-icon>
+            <ion-input type='email' email [(ngModel)]='email' name='email' placeholder='Meu e-mail' [clearInput]='!emailForm.form.valid'
+              pattern='[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{3,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})'></ion-input>
+            <ion-icon [hidden]='!emailForm.form.valid' item-end small name='md-checkmark' color='valid'></ion-icon>
+          </ion-item>
+          <div class='tipsContainer'>
+            <p class='tip'></p>
+          </div>
+          <br>
+
+          <button ion-button block large mode='ios' [disabled]='!emailForm.form.valid' (click)='slideNext()'>Continuar</button>
+        </form>
+      </ion-slide>
+
+      <ion-slide padding class='tip'>
+        <p text-left>Agora crie uma senha</p>
+
+        <ion-item no-lines class='itemRound'>
+          <ion-icon item-start name='md-key' color='icons'></ion-icon>
+          <ion-input type='password' placeholder='Minha senha' [(ngModel)]='password' (input)='getPasswordLength()'></ion-input>
+          <ion-note [hidden]='isPasswordCheck' item-end>{{ passwordLength }}</ion-note>
+          <ion-icon [hidden]='!isPasswordCheck' item-end small name='md-checkmark' color='valid'></ion-icon>
+        </ion-item>
+        <div class='tipsContainer'>
+          <p [hidden]='isPasswordCheck' class='tip'></p>
+          <p text-center [hidden]='!isPasswordCheck' class='tip'>
+            <b>Guarde bem sua senha!</b>
+          </p>
+        </div>
+        <br>
+
+        <button ion-button block large mode='ios' [disabled]='!isPasswordCheck' (click)='slideNext()'>Continuar</button>
+      </ion-slide>
+
+      <ion-slide padding class='tip'>
+        <p text-left>Confirme sua senha</p>
+
+        <ion-item no-lines class='itemRound'>
+          <ion-icon item-start name='md-key' color='icons'></ion-icon>
+          <ion-input type='password' placeholder='Confirmar minha senha' [(ngModel)]='confirmPassword' [disabled]='isCreating' (input)='validatePassword()'
+            [clearInput]='!isConfirmPasswordCheck'></ion-input>
+          <ion-icon [hidden]='!isConfirmPasswordCheck' item-end small name='md-checkmark' color='valid'></ion-icon>
+        </ion-item>
+        <div class='tipsContainer'>
+          <p [hidden]='isConfirmPasswordCheck' class='tip'></p>
+          <p text-center [hidden]='!isConfirmPasswordCheck' class='tip'></p>
+        </div>
+
+        <button ion-button block large mode='ios' [disabled]='!enableButton' (click)='createUser()'>
+          <span [hidden]='showLoad'>{{ labelButton }}</span>
+          <ion-spinner [hidden]='!showLoad' color='light'></ion-spinner>
+        </button>
+
+        <button ion-button clear block mode='ios' [disabled]='isCreating' (click)='slideBack()'>Voltar</button>
+      </ion-slide>
+
+    </ion-slides>
+  </div>
+
+
+</ion-content>

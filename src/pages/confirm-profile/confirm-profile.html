@@ -1,0 +1,63 @@
+<ion-header>
+
+  <ion-toolbar color='primary'>
+    <ion-title text-center> C O N F I R M A Ç Ã O </ion-title>
+
+    <ion-buttons left>
+      <button ion-button clear icon-only [disabled]='isCreating' (click)='updateProfile()'>
+        <ion-icon name='arrow-back' color='light'></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons right>
+      <button ion-button clear icon-only>
+        <ion-icon name='ios-cloud' color='light'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar color='primary'>
+    <ion-title text-center>Revise seus dados antes do cadastro</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <img src='assets/imgs/user.jpg' class='profile-photo'>
+
+  <div class='info'>
+    <ion-card>
+
+      <ion-item no-lines>
+        <ion-icon item-end name='md-person' color='icons'></ion-icon>
+        <ion-label stacked color='primary'>Meu nome</ion-label>
+        <ion-input disabled [value]='profile.name'></ion-input>
+      </ion-item>
+
+      <ion-item no-lines>
+        <ion-icon item-end name='md-calendar' color='icons'></ion-icon>
+        <ion-label stacked color='primary'>Eu nasci em</ion-label>
+        <ion-input disabled [value]='profile.dateOfBirth'></ion-input>
+      </ion-item>
+
+      <ion-item no-lines>
+        <ion-icon item-end [name]='genderIcon' [color]='genderColor'></ion-icon>
+        <ion-label stacked color='primary'>Gênero</ion-label>
+        <ion-input disabled [value]='genderLabel'></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <div margin-top padding>
+      <h3 text-center>Tudo pronto? Podemos começar?</h3>
+      <br>
+      <button margin-top ion-button block large mode='ios' [disabled]='isCreating' (click)='createUserProfile()'>
+        <span [hidden]='isCreating'>Sim, vamos lá!</span>
+        <ion-spinner [hidden]='!isCreating' color='light'></ion-spinner>
+      </button>
+      <button ion-button clear block large mode='ios' [disabled]='isCreating' (click)='updateProfile()'>Eu quero alterar meus dados</button>
+    </div>
+  </div>
+
+</ion-content>

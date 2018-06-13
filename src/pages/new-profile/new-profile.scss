@@ -1,0 +1,35 @@
+page-new-profile {
+  .background {
+    background: linear-gradient(rgba(255,255,255,.6)),url('../assets/imgs/back.jpg');
+    background-size: cover;
+  }
+
+  .profilePicture {
+    width: 50vw;
+    height: 50vw;
+    margin: 2vh 25vw 4vh;
+    border: 4px solid #ffffff;
+    border-radius: 100%;
+    box-shadow: 8px 10px 20px rgba(82, 82, 82, 0.6);
+  }
+
+  .form {
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, .1);
+
+    .item {
+      border-radius: 5px;
+      background: #f8f8f8;
+    }
+  }
+
+  .changePhoto {
+    top: 38vw;
+  }
+
+  .footerButton {
+    width: 100vw;
+    position: fixed;
+    bottom: -1vh;
+  }
+
+}

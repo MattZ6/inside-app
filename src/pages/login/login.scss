@@ -1,0 +1,20 @@
+page-login {
+  ion-content {
+    background: linear-gradient(25deg, rgb(255, 255, 255), rgba(255, 255, 255, .6)), url('../assets/imgs/back.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    h1 {
+      font-size: 4.2rem;
+      text-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .itemRound {
+      border-radius: 5px;
+      box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+  }
+
+}

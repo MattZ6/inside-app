@@ -1,0 +1,38 @@
+page-welcome {
+  ion-content {
+    background: linear-gradient(25deg, rgb(64, 178, 253), rgba(255, 255, 255, .6)), url('../assets/imgs/back.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    section {
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      bottom: 5%;
+    }
+
+    .buttonsMidle {
+      width: 100%;
+      position: absolute;
+      top: 48%;
+    }
+
+    .mainButtons {
+      border-radius: 30px;
+      font-weight: 300;
+      box-shadow: 5px 5px 15px rgba(80, 79, 79, 0.3);
+    }
+
+    .createAccount {
+      border-width: 2px;
+      border-radius: 30px;
+      color: #ffffff;
+    }
+
+    .signInButton {
+      background: linear-gradient(25deg, rgb(37, 147, 250), rgb(64, 178, 253));
+    }
+  }
+
+}

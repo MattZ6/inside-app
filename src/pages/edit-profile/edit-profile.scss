@@ -1,0 +1,23 @@
+page-edit-profile {
+  ion-datetime,
+  ion-input,
+  ion-radio {
+    color: #696969;
+    font-weight: 500;
+  }
+
+  ion-note {
+    width: 100%;
+  }
+
+  h3 {
+    color: #696969;
+  }
+
+  .age {
+    color: #696969;
+    width: 100%;
+    font-weight: 500;
+    text-align: right;
+  }
+}

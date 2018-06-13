@@ -1,0 +1,69 @@
+<ion-header>
+
+  <ion-toolbar color='primary'>
+
+    <ion-title text-center>P E R F I L</ion-title>
+
+    <ion-buttons left>
+      <button ion-button clear icon-only navPop>
+        <ion-icon name='arrow-back' color='light'></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons right>
+      <button ion-button clear icon-only>
+        <ion-icon name='md-cloud' color='light'></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div class='background'>
+    <img class='profilePicture' src='assets/imgs/user.jpg'>
+    <ion-fab class='changePhoto' edge right>
+      <button ion-fab icon-only color='primary'>
+        <ion-icon name='camera' color='light'></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
+
+  <div class='profileContent'>
+    <h1 text-center>{{ userProfile?.name }}</h1>
+    <p text-center class='user-age'>{{ userProfile?.yearsOld }} anos</p>
+
+    <ion-card>
+      <ion-item>
+        <ion-icon name='md-calendar' item-end color='primary'></ion-icon>
+        <p>{{ userProfile?.dateOfBirth }}</p>
+      </ion-item>
+      <ion-item>
+        <ion-icon [name]='genderIcon' item-end [color]='userProfile?.gender'></ion-icon>
+        <p>{{ userProfile?.gender == 'man' ? "Homem" : "Mulher" }}</p>
+      </ion-item>
+      <ion-item>
+        <ion-icon name='md-mail' item-end color='primary'></ion-icon>
+        <p>{{ userProfile?.email }}</p>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <button ion-item navPush='EditProfilePage'>
+        <ion-icon name='ios-glasses' item-start></ion-icon>
+        Editar perfil
+        <ion-icon showWhen='android, windows' small item-end name='ios-arrow-forward'></ion-icon>
+      </button>
+    </ion-card>
+
+    <ion-card margin-top>
+      <button ion-item color='dark' (click)='logoutUser()'>
+        <ion-icon name='ios-exit-outline' item-end></ion-icon>
+        Sair
+      </button>
+    </ion-card>
+  </div>
+</ion-content>

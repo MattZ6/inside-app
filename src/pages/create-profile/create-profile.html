@@ -1,0 +1,100 @@
+<ion-header>
+
+  <ion-toolbar color='primary'>
+      <ion-title text-center>P E R F I L</ion-title>
+      <ion-buttons left>
+          <button ion-button clear icon-only (click)='backLogout()'>
+              <ion-icon name='arrow-back'></ion-icon>
+          </button>
+      </ion-buttons>
+
+      <ion-buttons right>
+          <button ion-button large clear icon-only>
+              <ion-icon name='ios-cloud'></ion-icon>
+          </button>
+      </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar color='primary'>
+      <ion-title text-center>Criação do seu perfil</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content fullscreen>
+
+  <div>
+      <div padding class='titles'>
+          <h1 text-justify>Ótimo!</h1>
+          <h4 text-justify>Agora precisamos saber um pouco sobre você...</h4>
+      </div>
+
+      <ion-slides>
+          <ion-slide padding>
+              <p text-left class='tip'>Como você se chama?</p>
+
+              <ion-item no-lines class='itemRound'>
+                  <ion-icon item-start name='md-contact' color='icons'></ion-icon>
+                  <ion-input type='text' placeholder='Meu nome é...' [(ngModel)]='profile.name' (input)='verifyName()' autocomplete='on' [clearInput]='!isValidName'></ion-input>
+                  <ion-icon [hidden]='!isValidName' item-end small name='md-checkmark' color='valid'></ion-icon>
+              </ion-item>
+              <div class='tipsContainer'>
+                  <p text-justify class='tip'>
+                      Seu nome completo
+                  </p>
+              </div>
+              <br>
+
+              <button ion-button large mode='ios' block [disabled]='!isValidName' (click)='slideNext()'>Continuar</button>
+          </ion-slide>
+
+          <ion-slide padding>
+              <p text-left class='tip'>Ok
+                  <span class='name'>{{ profile.firstName }}</span>, selecione seu gênero:</p>
+
+              <ion-card>
+                  <ion-list no-lines radio-group>
+                      <ion-item>
+                          <ion-icon item-start color='man' name='ios-man'></ion-icon>
+                          <ion-label>Homem</ion-label>
+                          <ion-radio value='man' (ionSelect)='setGender("man")'></ion-radio>
+                      </ion-item>
+                      <ion-item>
+                          <ion-icon item-start color='woman' name='ios-woman'></ion-icon>
+                          <ion-label>Mulher</ion-label>
+                          <ion-radio value='woman' (ionSelect)='setGender("woman")'></ion-radio>
+                      </ion-item>
+                  </ion-list>
+              </ion-card>
+              <div class='tipsContainer'>
+                  <p text-justify class='tip'>A escolha do gênero influenciará somente na decisão de sua voz</p>
+              </div>
+              <br>
+
+              <button ion-button large mode='ios' block [disabled]='!isValidGender' (click)='slideNext()'>Continuar</button>
+          </ion-slide>
+
+          <ion-slide padding>
+              <p text-left class='tip'>Quando você nasceu?</p>
+
+              <ion-item no-lines class='itemRound'>
+                  <ion-icon item-start name='md-calendar' color='icons'></ion-icon>
+                  <ion-datetime displayFormat='DD de MMMM de YYYY' pickerFormat='DD MMM YYYY' monthNames='Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+                      monthShortNames='Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez' [(ngModel)]='profile.dateOfBirth'
+                      placeholder='Eu nasci em...' cancelText='Cancelar' doneText='Pronto' [max]='maxYear' (ionChange)='setAge()'></ion-datetime>
+                  <ion-icon [hidden]='!profile.dateOfBirth' item-end name='md-checkmark' small color='valid'></ion-icon>
+              </ion-item>
+              <div class='tipsContainer'>
+                  <p [hidden]='profile.yearsOld' class='tip'></p>
+                  <p [hidden]='!profile.yearsOld' text-right class='tip'>Tenho {{ profile.yearsOld }} anos</p>
+              </div>
+              <br>
+
+              <button ion-button large mode='ios' block [disabled]='!profile.dateOfBirth' (click)='goToConfirmPage()'>Concluir</button>
+
+          </ion-slide>
+      </ion-slides>
+  </div>
+
+</ion-content>

@@ -1,0 +1,41 @@
+page-profile {
+  ion-content {
+    background: linear-gradient(#f1f1f1);
+  }
+
+  .background {
+    background: linear-gradient(rgba(255,255,255,.6)),url('../assets/imgs/back.jpg');
+    background-size: cover;
+    height: 50vh;
+  }
+
+  .profilePicture {
+    width: 54vw;
+    height: 54vw;
+    margin: 2vh 23vw 4vh;
+    border: 5px solid #ffffff;
+    border-radius: 100%;
+    box-shadow: 8px 10px 20px rgba(82, 82, 82, 0.6);
+  }
+
+  .changePhoto {
+    top: 42vw;
+    right: 18vw;
+  }
+
+  .profileContent {
+    margin-top: -18vh;
+
+    h1 {
+      text-transform: capitalize;
+      color: #333333;
+    }
+
+    .user-age {
+      margin-top: -1%;
+      font-size: 1.2em;
+      color: #333333;
+    }
+  }
+
+}

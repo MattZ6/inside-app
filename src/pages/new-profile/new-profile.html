@@ -1,0 +1,72 @@
+<ion-header>
+
+  <ion-toolbar color='primary'>
+    <ion-title text-center>P E R F I L</ion-title>
+
+    <ion-buttons left>
+      <button ion-button clear icon-only (click)='backLogout()' [disabled]='isCreating'>
+        <ion-icon name='arrow-back' color='light'></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons right>
+      <button ion-button clear icon-only>
+        <ion-icon name='md-cloud' color='light'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div class='background'>
+    <img class='profilePicture' src='assets/imgs/user.jpg'>
+    <ion-fab class='changePhoto' edge right>
+      <button ion-fab icon-only color='light' [disabled]='isCreating'>
+        <ion-icon name='camera'></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
+
+  <div padding class='form'>
+
+    <ion-item no-lines class='itemRound'>
+      <ion-label stacked color='primary'>Eu me chamo...</ion-label>
+      <ion-input type='text' placeholder='Ex. João da Silva' [(ngModel)]='profile.name' [disabled]='isCreating' autocomplete='on'
+        (input)='verifyName()' [clearInput]='!isValidName'></ion-input>
+      <ion-icon [hidden]='!isValidName' item-end name='md-checkmark' color='primary'></ion-icon>
+    </ion-item>
+
+    <ion-list margin-left no-lines radio-group>
+      <ion-label stacked color='primary'>Meu gênero </ion-label>
+      <ion-item>
+        <ion-icon item-start color='man' name='ios-man'></ion-icon>
+        <ion-label>Masculino</ion-label>
+        <ion-radio value='man' (ionSelect)='setGender("man")' [disabled]='isCreating'></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-icon item-start color='woman' name='ios-woman'></ion-icon>
+        <ion-label>Feminino</ion-label>
+        <ion-radio value='woman' (ionSelect)='setGender("woman")' [disabled]='isCreating'></ion-radio>
+      </ion-item>
+    </ion-list>
+
+    <ion-item no-lines class='itemRound'>
+      <ion-label stacked color='primary'>Eu nasci em...</ion-label>
+      <ion-datetime displayFormat='DD de MMMM de YYYY' pickerFormat='DD MMM YYYY' monthNames='Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+        monthShortNames='Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez' [disabled]='isCreating' [(ngModel)]='profile.dateOfBirth'
+        placeholder='Eu nasci em...' cancelText='Cancelar' doneText='Pronto' [max]='maxYear' (ionChange)='setAge()'></ion-datetime>
+      <ion-icon [hidden]='!profile.dateOfBirth' item-end name='checkmark' color='primary'></ion-icon>
+    </ion-item>
+  </div>
+
+  <div class='footerButton'>
+    <button mode='ios' ion-button large full [disabled]='isButtonDisabled' (click)='createUserProfile()'>
+      <span [hidden]='hideLabel'> {{ buttonLabel }} </span>
+      <ion-spinner [hidden]='!hideLabel' color='light'></ion-spinner>
+    </button>
+  </div>
+
+</ion-content>

@@ -1,0 +1,78 @@
+<ion-header no-border>
+
+  <ion-toolbar color='primary'>
+    <ion-title text-center>E D I T A R</ion-title>
+
+    <ion-buttons left>
+      <button ion-button icon-only navPop>
+        <ion-icon name='arrow-back' color='light'></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons right>
+      <button ion-button icon-only>
+        <ion-icon name='md-cloud' color='light'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <main>
+
+    <section padding>
+
+      <h3 margin-top text-center>Aqui você pode alterar suas informações</h3>
+      <br>
+
+      <ion-item>
+        <ion-label stacked>Nome</ion-label>
+        <ion-input type='text' [(ngModel)]='userProfile.name' value='userProfile.name'></ion-input>
+        <ion-icon item-end color='primary' name='md-person'></ion-icon>
+      </ion-item>
+      <br>
+
+      <ion-item>
+        <ion-label stacked>Data de nascimento</ion-label>
+        <ion-datetime displayFormat='DD de MMMM de YYYY' pickerFormat="DD MMM YYYY" monthNames='Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+          monthShortNames='Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez' [(ngModel)]='userProfile.dateOfBirth' value='userProfile.dateOfBirth'></ion-datetime>
+        <ion-icon item-end color='primary' name='md-calendar'></ion-icon>
+      </ion-item>
+      <p class='age' no-padding>{{ userProfile.yearsOld }} anos</p>
+      <br>
+
+      <ion-card no-padding>
+        <ion-list radio-group>
+          <ion-list-header no-lines color='primary'>
+            Gênero
+          </ion-list-header>
+
+          <ion-item>
+            <ion-icon item-start name='ios-woman' color='woman'></ion-icon>
+            <ion-label>Feminino</ion-label>
+            <ion-radio value='feminino'></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon item-start name='ios-man' color='man'></ion-icon>
+            <ion-label>Masculino</ion-label>
+            <ion-radio value='masculino'></ion-radio>
+          </ion-item>
+
+        </ion-list>
+      </ion-card>
+      <br>
+
+      <ion-note>
+        <b>Nota:</b> tanto as opções de sexo, quanto as opções de idade influenciarão na desição sobre sua voz.</ion-note>
+      <br>
+      <br>
+
+      <button mode='ios' ion-button block large>Salvar</button>
+
+    </section>
+
+  </main>
+
+</ion-content>

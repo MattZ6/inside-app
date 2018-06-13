@@ -1,0 +1,56 @@
+<ion-header no-border>
+
+  <ion-toolbar transparent>
+    <ion-title text-center>L O G I N</ion-title>
+
+    <ion-buttons left>
+      <button ion-button clear large icon-only navPop [disabled]='isCreating'>
+        <ion-icon name='arrow-back' color='primary'></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons right>
+      <button ion-button clear large icon-only>
+        <ion-icon name='md-cloud' color='primary'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding fullscreen>
+
+  <div margin-top margin-bottom>
+    <h1 ion-text text-center color='primary'>Vamos crescer juntos!</h1>
+  </div>
+
+  <div margin-top margin-bottom padding>
+    <form #emailForm='ngForm'>
+      <ion-item no-lines class='itemRound'>
+        <ion-icon item-start name='mail' color='icons'></ion-icon>
+        <ion-input type='email' email [(ngModel)]='email' name='email' [disabled]='disableEmail' placeholder='E-mail' [clearInput]='!emailForm.form.valid'
+          pattern='[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{3,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})' (input)='isValidEmail()'></ion-input>
+        <ion-icon [hidden]='!emailForm.form.valid' item-end small name='md-checkmark' color='valid'></ion-icon>
+      </ion-item>
+
+    </form>
+    <br>
+
+    <ion-item no-lines class='itemRound'>
+      <ion-icon item-start [name]='passwordUnlock' color='icons'></ion-icon>
+      <ion-input type='password' placeholder='Senha' [(ngModel)]='password' [disabled]='disablePassword' (input)='getPasswordLength()'
+        maxlength='12' [clearInput]='!isPasswordCheck'></ion-input>
+      <ion-icon [hidden]='!isPasswordCheck' item-end small name='md-checkmark' color='valid'></ion-icon>
+    </ion-item>
+    <br>
+    <br>
+
+    <button ion-button mode='ios' large block [disabled]='isButtonDesabled' (click)='signIn()'>
+      <span [hidden]='hideLabel'> {{ buttonLabel }} </span>
+      <ion-spinner [hidden]='!hideLabel' color='light'></ion-spinner>
+    </button>
+  </div>
+  <button ion-button full mode='ios' clear navPush='CreateAuthPage' [disabled]='disableCreateAccount'>Não tenho uma conta</button>
+
+
+</ion-content>

@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-navbar no-padding>
+    <button ion-item no-lines (click)='goToProfilePage()'>
+      <ion-avatar item-start>
+        <img [src]='userUrlImage'>
+      </ion-avatar>
+      <h1>Olá, {{ userProfile?.firstName }}</h1>
+      <p>{{ userMessage }}</p>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <div class='live-background'>
+    <h4>{{ cattegorie }}</h4>
+  </div>
+
+  <div class='background'>
+  </div>
+
+  <ion-slides (ionSlideWillChange)='slideChanged()'>
+    <ion-slide *ngFor='let topico of modifiedTopics'>
+      <ion-card class='activity' (click)='playSound(topico)'>
+        <img [src]='topico.urlImagem'>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+
+  <h1 class='titulo'>{{ title }}</h1>
+
+  <button ion-button clear icon-only [class]='hideLeftButton' (click)='slideBack()'>
+    <img src='assets/icons/slideBack.png'>
+  </button>
+
+  <button ion-button clear icon-only [class]='hideRightButton' (click)='slideForward()'>
+    <img src='assets/icons/slideForward.png'>
+  </button>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color='primary'>
+    <ion-segment [(ngModel)]='cattegories' color='light'>
+      <ion-segment-button icon-start value='alimentacao' (ionSelect)='setCattegorie("Alimentação")' selected>
+        <ion-icon name='pizza'></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button icon-start value='higiene' (ionSelect)='setCattegorie("Higiêne")'>
+        <ion-icon name='leaf'></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value='2'>
+        <ion-icon name='planet'></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value='3'>
+        <ion-icon name='heart'></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value='4'>
+        <ion-icon name='flame'></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

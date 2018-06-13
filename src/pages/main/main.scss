@@ -1,0 +1,137 @@
+page-main {
+  ion-header {
+    ion-navbar {
+      button {
+        height: 72px;
+      }
+    }
+  }
+
+  ion-content {
+    .live-background {
+      width: 100%;
+      height: 50%;
+      background-repeat: no-repeat;
+      background: color($colors, primary);
+
+      h4 {
+        position: absolute;
+        padding: .6% 2.6%;
+        border-radius: 20px;
+        background: rgba(0, 0, 0, 0.180);
+        color: #FFFFFF;
+        font-weight: normal;
+        top: -1%;
+        left: 1%;
+        transition: .2s;
+      }
+    }
+
+    .background {
+      position: absolute;
+      z-index: 0;
+      width: 100%;
+      height: 50%;
+      background: #ffffff;
+      box-shadow: 0 -2px 5px rgba(80, 80, 80, .3);
+    }
+  }
+
+  .titulo {
+    position: absolute;
+    width: 100vw;
+    text-align: center;
+    font-size: 2.8em;
+    color: rgb(61, 57, 57);
+    margin-top: 31%;
+    font-weight: 500;
+    text-shadow: 5px 5px 10px rgba(128, 128, 128, 0.452);
+  }
+
+  ion-slides {
+    top: 10%;
+    position: absolute;
+    width: 100%;
+    height: 65%;
+    background: rgba(197, 98, 98, 0);
+
+    ion-slide {
+      .activity {
+        width: 75vw;
+        height: 75vw;
+        margin-left: 12.5vw;
+        margin-right: 12.5vw;
+        margin-top: 1%;
+        background-position: center;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0);
+        box-shadow: 0 3px 10px rgba(77, 77, 77, .5);
+        transition: .4s;
+
+        img {
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+
+      .activity:active {
+        opacity: .9;
+      }
+    }
+  }
+
+  .left-button {
+    position: absolute;
+    width: 13%;
+    background: rgba(0, 0, 0, 0.0);
+    z-index: 100;
+    left: -2%;
+    top: 41%;
+    opacity: 1;
+    transition: .2s;
+  }
+
+  .left-button-hide {
+    position: absolute;
+    width: 13%;
+    background: rgba(0, 0, 0, 0.0);
+    z-index: 100;
+    left: -10%;
+    top: 41%;
+    opacity: 0;
+    transition: .2s;
+  }
+
+  .right-button {
+    position: absolute;
+    width: 13%;
+    background: rgba(0, 0, 0, 0.0);
+    z-index: 100;
+    right: -2%;
+    top: 41%;
+    opacity: 1;
+    transition: .2s;
+  }
+
+  .right-button-hide {
+    position: absolute;
+    width: 13%;
+    background: rgba(0, 0, 0, 0.0);
+    z-index: 100;
+    right: -10%;
+    top: 41%;
+    opacity: 0;
+    transition: .3s;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+  }
+
+  h5 {
+    color: #FFF;
+    transition: .5s;
+  }
+}
