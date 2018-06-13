@@ -39,7 +39,7 @@
     <ion-card>
       <ion-item>
         <ion-icon name='md-calendar' item-end color='primary'></ion-icon>
-        <p>{{ userProfile?.dateOfBirth }}</p>
+        <p>{{ userProfile?.dateOfBirth | date: "dd/MM/yyyy" }}</p>
       </ion-item>
       <ion-item>
         <ion-icon [name]='genderIcon' item-end [color]='userProfile?.gender'></ion-icon>

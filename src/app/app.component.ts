@@ -1,3 +1,4 @@
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -12,7 +13,9 @@ import { FIREBASE_CONFIG } from './credentials';
 export class MyApp {
   rootPage: string;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, screen: ScreenOrientation) {
+
+    screen.lock(screen.ORIENTATIONS.PORTRAIT);
 
     firebase.initializeApp(FIREBASE_CONFIG);
 

@@ -39,7 +39,7 @@
       <ion-item no-lines>
         <ion-icon item-end name='md-calendar' color='icons'></ion-icon>
         <ion-label stacked color='primary'>Eu nasci em</ion-label>
-        <ion-input disabled [value]='profile.dateOfBirth'></ion-input>
+        <ion-input disabled [value]='profile.dateOfBirth | date: "dd/MM/yyyy"'></ion-input>
       </ion-item>
 
       <ion-item no-lines>

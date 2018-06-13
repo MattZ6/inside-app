@@ -124,14 +124,15 @@ export class LoginPage {
 
         this.profileProvider.getUserProfile().once('value', userProfileSnapshot => {
           userProfile = userProfileSnapshot.val();
-
-
+        }).then(() => {
           if (userProfile.name != null) {
             this.navCtrl.setRoot('MainPage');
           } else {
             this.navCtrl.push('NewProfilePage');
           }
-
+        }).catch(e => {
+          this.presentToast('Deu erro nessa merda', 2000, 'bottom', 'error');
+          this.navCtrl.pop();
         });
 
       }, error => {
@@ -175,4 +176,4 @@ export class LoginPage {
       })
   }
 
- }
+}

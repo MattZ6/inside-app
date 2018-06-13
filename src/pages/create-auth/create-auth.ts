@@ -171,14 +171,6 @@ export class CreateAuthPage {
       });
   }
 
-  backLogout(): Promise<any> {
-    const userId: string = firebase.auth().currentUser.uid;
-    firebase.database().ref(`/Profile/${userId}`).off();
-    return firebase.auth().signOut().then(() => {
-      this.navCtrl.popToRoot();
-    });
-  }
-
   ionViewCanLeave(): boolean {
     return this.canLeave;
   }
