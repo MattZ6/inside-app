@@ -1,9 +1,10 @@
+import { StatusBar } from '@ionic-native/status-bar';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, Slides, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, Slides, LoadingController, Platform } from 'ionic-angular';
 import { ProfileProvider } from '../../providers/profile/profile';
-import { AuthProvider } from './../../providers/auth/auth';
 import { Profile } from './../../models/Profile';
-
+import { Vibration } from '@ionic-native/vibration';
+import { NativeAudio } from '@ionic-native/native-audio';
 
 @IonicPage()
 @Component({
@@ -19,18 +20,21 @@ export class MainPage {
   userUrlImage: string = 'assets/imgs/user.png';
   userMessage: string = 'Seja bem-vindo!';
 
+  topicClass: string = 'activity';
+  isPlaying: boolean = false;
+
   modifiedTopics = [];
   originalTopics = [
-    { title: 'Sono', cattegorie: '', urlImagem: 'assets/imgs/topicos/sono.png', urlSound: '', notification: 'Estou com sono' },
-    { title: 'Fome', cattegorie: 'Alimentação', urlImagem: 'assets/imgs/topicos/iceCream.png', urlSound: '', notification: 'Estou com fome' },
-    { title: 'Sede', cattegorie: 'Alimentação', urlImagem: 'assets/imgs/topicos/comida.png', urlSound: '', notification: 'Estou com sede' },
-    { title: 'Ir ao banheiro', cattegorie: '', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: '', notification: 'Preciso ir ao banheiro' },
-    { title: 'Tomar banho', cattegorie: 'Higiêne', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: '', notification: 'Quero tomar banho' },
-    { title: 'Escovar os dentes', cattegorie: 'Higiêne', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: '', notification: 'Quero escovar meus dentes' },
-    { title: 'Trocar de roupa', cattegorie: '', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: '', notification: 'Quero trocar de roupa' },
-    { title: 'Brincar', cattegorie: 'Lazer', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: '', notification: 'Quero brincar' },
-    { title: 'Assistir', cattegorie: 'Lazer', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: '', notification: 'Quero assistir' },
-    { title: 'Passear', cattegorie: 'Lazer', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: '', notification: 'Quero passear' }
+    { title: 'Sono', cattegorie: '', urlImagem: 'assets/imgs/topicos/sono.png', urlSound: 'assets/audio/example.mp3', notification: 'Estou com sono' },
+    { title: 'Fome', cattegorie: 'Alimentação', urlImagem: 'assets/imgs/topicos/iceCream.png', urlSound: 'assets/audio/example.mp3', notification: 'Estou com fome' },
+    { title: 'Sede', cattegorie: 'Alimentação', urlImagem: 'assets/imgs/topicos/comida.png', urlSound: 'assets/audio/example.mp3', notification: 'Estou com sede' },
+    { title: 'Ir ao banheiro', cattegorie: '', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: 'assets/audio/example.mp3', notification: 'Preciso ir ao banheiro' },
+    { title: 'Tomar banho', cattegorie: 'Higiêne', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: 'assets/audio/example.mp3', notification: 'Quero tomar banho' },
+    { title: 'Escovar os dentes', cattegorie: 'Higiêne', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: 'assets/audio/example.mp3', notification: 'Quero escovar meus dentes' },
+    { title: 'Trocar de roupa', cattegorie: '', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: 'assets/audio/example.mp3', notification: 'Quero trocar de roupa' },
+    { title: 'Brincar', cattegorie: 'Lazer', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: 'assets/audio/example.mp3', notification: 'Quero brincar' },
+    { title: 'Assistir', cattegorie: 'Lazer', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: 'assets/audio/example.mp3', notification: 'Quero assistir' },
+    { title: 'Passear', cattegorie: 'Lazer', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: 'assets/audio/example.mp3', notification: 'Quero passear' }
 
   ];
 
@@ -41,11 +45,21 @@ export class MainPage {
   hideLeftButton: string = 'left-button-hide';
   hideRightButton: string = 'right-button';
 
-  constructor(private profileProvider: ProfileProvider, private toast: ToastController, private loadingCtrl: LoadingController, public navCtrl: NavController) {
+  constructor(private profileProvider: ProfileProvider, private loadingCtrl: LoadingController,
+    private vibrator: Vibration, private audio: NativeAudio, private statusBar: StatusBar, private platform: Platform, public navCtrl: NavController) {
 
   }
 
+  ionViewDidEnter(){
+    this.platform.ready().then(() => {
+      this.statusBar.show();
+      this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByHexString('#ffffff');
+    });
+  }
+
   ionViewDidLoad() {
+
     let load = this.loadingCtrl.create({
       content: 'Carregando seu perfil...'
     });
@@ -66,13 +80,27 @@ export class MainPage {
     })
   }
 
-  playSound(topico) {
-    this.toast.create({
-      message: topico.notification,
-      duration: 1000,
-      position: 'middle',
+  playSound(topic) {
 
-    }).present();
+    this.vibrator.vibrate(1000);
+
+    if (!this.isPlaying) {
+
+      this.topicClass = 'desabledActivity';
+
+      this.audio.preloadSimple('audioMessage', topic.urlSound).then(() => {
+        this.audio.play('audioMessage', () => {
+
+          this.isPlaying = true;
+
+          this.audio.unload('audioMessage').then(() => {
+            this.topicClass = 'activity';
+            this.isPlaying = false;
+          });
+
+        });
+      });
+    }
   }
 
   slideBack() {

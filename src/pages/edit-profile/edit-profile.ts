@@ -93,7 +93,7 @@ export class EditProfilePage {
         message: 'Perfil alterado com sucesso!',
         cssClass: 'valid',
         duration: 1800,
-        position: 'top'
+        position: 'bottom'
       }).present();
 
       this.navCtrl.pop();

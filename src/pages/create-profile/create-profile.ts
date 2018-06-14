@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, Slides } from 'ionic-angular';
-import { ProfileProvider } from './../../providers/profile/profile';
 import { Profile } from '../../models/Profile';
 import firebase from 'firebase';
 
@@ -19,7 +18,7 @@ export class CreateProfilePage {
   isValidGender: boolean = false;
   isValidName: boolean = false;
 
-  constructor(private profileProvider: ProfileProvider, public navCtrl: NavController) {
+  constructor(public navCtrl: NavController) {
 
     this.profile.firstName = '';
     this.setValidYear();

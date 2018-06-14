@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { IonicPage, NavController, ToastController, Platform } from 'ionic-angular';
 import { ProfileProvider } from '../../providers/profile/profile';
 import firebase from 'firebase';
 import { Profile } from './../../models/Profile';
@@ -29,11 +30,16 @@ export class LoginPage {
 
   isCreating: boolean;
 
-  constructor(private toast: ToastController, private profileProvider: ProfileProvider, public navCtrl: NavController) {
-
+  constructor(private toast: ToastController, private profileProvider: ProfileProvider, private platform: Platform, private statusBar: StatusBar, public navCtrl: NavController) {
+   
   }
 
   ionViewWillEnter() {
+
+    this.platform.ready().then(() => {
+      this.statusBar.hide();
+    });
+
     this.buttonLabel = 'Entrar';
     this.passwordUnlock = 'lock';
     this.isEmailCheck = false;
@@ -130,9 +136,6 @@ export class LoginPage {
           } else {
             this.navCtrl.push('NewProfilePage');
           }
-        }).catch(e => {
-          this.presentToast('Deu erro nessa merda', 2000, 'bottom', 'error');
-          this.navCtrl.pop();
         });
 
       }, error => {

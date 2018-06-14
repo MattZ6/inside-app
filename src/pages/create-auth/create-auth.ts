@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, Slides, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, Slides, ToastController, Platform } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 import firebase from 'firebase';
+
 
 @IonicPage()
 @Component({
@@ -25,7 +27,15 @@ export class CreateAuthPage {
   isPasswordCheck: boolean = false;
   isConfirmPasswordCheck: boolean = false;
 
-  constructor(private toast: ToastController, public navCtrl: NavController) {
+  constructor(private toast: ToastController, private platform: Platform, private statusBar: StatusBar, public navCtrl: NavController) {
+  }
+
+
+  ionViewDidEnter() {
+    this.platform.ready().then(() => {
+      this.statusBar.styleLightContent();
+      this.statusBar.backgroundColorByHexString('#03A9F4');
+    });
   }
 
   ionViewDidLoad() {
@@ -100,7 +110,7 @@ export class CreateAuthPage {
           this.labelButton = 'Ok';
           this.showLoad = false;
 
-          this.presentToast('Conta criada com sucesso! =D', 1500, 'top', 'valid');
+          this.presentToast('Conta criada com sucesso! =D', 1500, 'bottom', 'valid');
 
           this.canLeave = true;
 
@@ -167,6 +177,7 @@ export class CreateAuthPage {
 
         }
 
+        this.canLeave = true;
         this.presentToast(errorMessage, 3000, 'bottom', 'error');
       });
   }

@@ -56,6 +56,26 @@ page-main {
     background: rgba(197, 98, 98, 0);
 
     ion-slide {
+      .desabledActivity {
+        width: 75vw;
+        height: 75vw;
+        margin-left: 12.5vw;
+        margin-right: 12.5vw;
+        margin-top: 1%;
+        background-position: center;
+        border-radius: 50%;
+        background: rgba(94, 91, 91, .9);
+        box-shadow: 0 3px 10px rgba(77, 77, 77, .5);
+
+        img {
+          filter:opacity(.5);
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+          transition: .3s;
+        }
+      }
+
       .activity {
         width: 75vw;
         height: 75vw;
@@ -64,19 +84,15 @@ page-main {
         margin-top: 1%;
         background-position: center;
         border-radius: 50%;
-        background-color: rgba(0, 0, 0, 0);
+        background: rgba(94, 91, 91, .9);
         box-shadow: 0 3px 10px rgba(77, 77, 77, .5);
-        transition: .4s;
 
         img {
           background-size: cover;
           background-repeat: no-repeat;
           background-position: center;
+          transition: .3s;
         }
-      }
-
-      .activity:active {
-        opacity: .9;
       }
     }
   }

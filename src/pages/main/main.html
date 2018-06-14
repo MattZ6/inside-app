@@ -22,7 +22,7 @@
 
   <ion-slides (ionSlideWillChange)='slideChanged()'>
     <ion-slide *ngFor='let topico of modifiedTopics'>
-      <ion-card class='activity' (click)='playSound(topico)'>
+      <ion-card [class]='topicClass' (click)='playSound(topico)'>
         <img [src]='topico.urlImagem'>
       </ion-card>
     </ion-slide>

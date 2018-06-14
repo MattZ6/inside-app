@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, Platform } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 import firebase from 'firebase';
 import { Profile } from '../../models/Profile';
 import { ProfileProvider } from '../../providers/profile/profile';
@@ -25,7 +26,16 @@ export class NewProfilePage {
   buttonLabel = 'Criar perfil';
   hideLabel = false;
 
-  constructor(private profileProvider: ProfileProvider, private toast: ToastController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private profileProvider: ProfileProvider, private platform: Platform, private statusBar: StatusBar, private toast: ToastController, public navCtrl: NavController) {
+
+    this.platform.ready().then(() => {
+      this.statusBar.styleLightContent();
+      this.statusBar.backgroundColorByHexString('#03A9F4');
+    });
+
+  }
+
+  ionViewDidLoad() {
     this.profile.firstName = '';
     this.setValidYear();
   }
