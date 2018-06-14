@@ -1,20 +1,20 @@
 page-create-auth {
   ion-content {
-    background: linear-gradient(#f6f6f6);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-
+      background: linear-gradient(#f7f7f7);
+   
     .titles {
       z-index: 11;
       margin-top: 12%;
       color: rgb(88, 88, 88);
-      //text-shadow: 1px 1px 2px rgba(114, 114, 114, .3);
 
       h1 {
         font-size: 4rem;
         font-weight: 700;
       }
+    }
+
+    ion-input {
+      color: #696969;
     }
 
     ion-slides {

@@ -38,7 +38,7 @@ $colors: (
   valid:      #2bc058,
   danger:     #f53d3d,
   light:      (base: #ffffff, contrast: rgb(49, 172, 255)),
-  dark:       #222,
+  dark:       rgb(112, 56, 56),
   man:        #3a7eb6,
   woman:      #f14696,
   icons:      rgb(42, 168, 226),
@@ -60,7 +60,14 @@ $toolbar-ios-title-text-color: color($colors, primary);
 
 $toolbar-md-title-text-color: color($colors, primary);
 $segment-button-md-border-bottom-width: 0px;
-
+$alert-md-max-width: 270px;
+$alert-md-border-radius: 13px;
+$alert-md-background-color: #f8f8f8;
+$alert-md-head-padding-top: 12px;
+$alert-md-head-padding-end: 16px;
+$alert-md-title-font-size: 26px;
+$alert-md-message-font-size: 17px;
+$loading-md-border-radius: 8px;
 
 // App Windows Variables
 // --------------------------------------------------

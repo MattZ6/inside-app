@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StatusBar } from '@ionic-native/status-bar';
-import { IonicPage, NavController, LoadingController, AlertController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, AlertController, Platform, ToastController } from 'ionic-angular';
 import firebase from 'firebase';
 import { Profile } from './../../models/Profile';
 import { ProfileProvider } from './../../providers/profile/profile';
@@ -16,7 +16,7 @@ export class ProfilePage {
   userProfile = {} as Profile;
   genderIcon: string = 'ios-man';
 
-  constructor(private profileProvider: ProfileProvider, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private platform: Platform, private statusBar: StatusBar, public navCtrl: NavController) {
+  constructor(private profileProvider: ProfileProvider, private loadingCtrl: LoadingController, private toast: ToastController, private alertCtrl: AlertController, private platform: Platform, private statusBar: StatusBar, public navCtrl: NavController) {
 
   }
 
@@ -68,7 +68,16 @@ export class ProfilePage {
             firebase.database().ref(`/Profile/${userId}`).off();
             firebase.auth().signOut().then(() => {
 
-              load.dismiss().then(() => { this.navCtrl.setRoot('WelcomePage') });
+              load.dismiss().then(() => {
+                this.navCtrl.setRoot('WelcomePage').then(() => {
+                  this.toast.create({
+                    message: 'Desconectado com sucesso!',
+                    duration: 1800,
+                    position: 'top',
+                    cssClass: 'valid'
+                  }).present();
+                })
+              });
 
             });
 

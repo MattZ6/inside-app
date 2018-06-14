@@ -11,13 +11,13 @@
 
     <ion-buttons right>
       <button ion-button clear icon-only>
-        <ion-icon name='ios-cloud' color='light'></ion-icon>
+        <ion-icon name='md-cloud' color='light'></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>
 
   <ion-toolbar color='primary'>
-    <ion-title text-center>Revise seus dados antes do cadastro</ion-title>
+    <h5 ion-text text-center color='light'>Revise seus dados antes do cadastro</h5>
   </ion-toolbar>
 
 </ion-header>
@@ -47,17 +47,18 @@
         <ion-label stacked color='primary'>Gênero</ion-label>
         <ion-input disabled [value]='genderLabel'></ion-input>
       </ion-item>
+
+      <div margin-top padding>
+        <h2 text-center>Tudo pronto? Podemos começar?</h2>
+        <br>
+        <button margin-top ion-button block large mode='ios' [disabled]='isCreating' (click)='createUserProfile()'>
+          <span [hidden]='isCreating'>Sim, vamos lá!</span>
+          <ion-spinner [hidden]='!isCreating' color='light'></ion-spinner>
+        </button>
+        <button ion-button clear full large mode='ios' class='textSmall' [disabled]='isCreating' (click)='updateProfile()'>Preciso alterar algumas informações</button>
+      </div>
     </ion-card>
 
-    <div margin-top padding>
-      <h3 text-center>Tudo pronto? Podemos começar?</h3>
-      <br>
-      <button margin-top ion-button block large mode='ios' [disabled]='isCreating' (click)='createUserProfile()'>
-        <span [hidden]='isCreating'>Sim, vamos lá!</span>
-        <ion-spinner [hidden]='!isCreating' color='light'></ion-spinner>
-      </button>
-      <button ion-button clear block large mode='ios' [disabled]='isCreating' (click)='updateProfile()'>Eu quero alterar meus dados</button>
-    </div>
   </div>
 
 </ion-content>

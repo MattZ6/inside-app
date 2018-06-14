@@ -24,7 +24,9 @@
 <ion-content>
 
   <div class='background'>
-    <img class='profilePicture' src='assets/imgs/user.jpg'>
+    <div>
+        <img class='profilePicture' src='assets/imgs/user.jpg'>
+    </div>
     <ion-fab class='changePhoto' edge right>
       <button ion-fab icon-only color='primary'>
         <ion-icon name='camera' color='light'></ion-icon>
@@ -36,7 +38,7 @@
     <h1 text-center>{{ userProfile?.name }}</h1>
     <p text-center class='user-age'>{{ userProfile?.yearsOld }} anos</p>
 
-    <ion-card>
+    <ion-card class='borderRadius'>
       <ion-item>
         <ion-icon name='md-calendar' item-end color='primary'></ion-icon>
         <p>{{ userProfile?.dateOfBirth | date: "dd/MM/yyyy" }}</p>
@@ -51,7 +53,7 @@
       </ion-item>
     </ion-card>
 
-    <ion-card>
+    <ion-card class='borderRadius'>
       <button ion-item navPush='EditProfilePage'>
         <ion-icon name='ios-glasses' item-start></ion-icon>
         Editar perfil
@@ -59,7 +61,7 @@
       </button>
     </ion-card>
 
-    <ion-card margin-top>
+    <ion-card margin-top class='borderRadius'>
       <button ion-item color='dark' (click)='logoutUser()'>
         <ion-icon name='ios-exit-outline' item-end></ion-icon>
         Sair

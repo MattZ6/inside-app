@@ -32,15 +32,15 @@
 
   <div padding class='form'>
 
-    <ion-item no-lines class='itemRound'>
+    <ion-item no-lines class='itemBack'>
       <ion-label stacked color='primary'>Eu me chamo...</ion-label>
       <ion-input type='text' placeholder='Ex. João da Silva' [(ngModel)]='profile.name' [disabled]='isCreating' autocomplete='on'
         (input)='verifyName()' [clearInput]='!isValidName'></ion-input>
-      <ion-icon [hidden]='!isValidName' item-end name='md-checkmark' color='primary'></ion-icon>
+      <ion-icon [hidden]='!isValidName' item-end name='md-checkmark' color='valid'></ion-icon>
     </ion-item>
 
-    <ion-list margin-left no-lines radio-group>
-      <ion-label stacked color='primary'>Meu gênero </ion-label>
+    <ion-list no-lines radio-group>
+      <ion-label margin-left padding-top stacked color='primary'>Meu gênero </ion-label>
       <ion-item>
         <ion-icon item-start color='man' name='ios-man'></ion-icon>
         <ion-label>Masculino</ion-label>
@@ -53,12 +53,12 @@
       </ion-item>
     </ion-list>
 
-    <ion-item no-lines class='itemRound'>
+    <ion-item no-lines class='itemBack'>
       <ion-label stacked color='primary'>Eu nasci em...</ion-label>
       <ion-datetime displayFormat='DD de MMMM de YYYY' pickerFormat='DD MMM YYYY' monthNames='Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
         monthShortNames='Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez' [disabled]='isCreating' [(ngModel)]='profile.dateOfBirth'
         placeholder='Eu nasci em...' cancelText='Cancelar' doneText='Pronto' [max]='maxYear' (ionChange)='setAge()'></ion-datetime>
-      <ion-icon [hidden]='!profile.dateOfBirth' item-end name='checkmark' color='primary'></ion-icon>
+      <ion-icon [hidden]='!profile.dateOfBirth' item-end name='checkmark' color='valid'></ion-icon>
     </ion-item>
   </div>
 

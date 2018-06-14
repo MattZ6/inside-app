@@ -21,12 +21,12 @@
 <ion-content>
   <main>
 
-    <section padding>
+    <div padding>
 
       <h3 margin-top text-center>Aqui você pode alterar suas informações</h3>
       <br>
 
-      <ion-item>
+      <ion-item >
         <ion-label stacked>Nome</ion-label>
         <ion-input type='text' [(ngModel)]='userProfile.name' value='userProfile.name' [disabled]='isCreating' autocomplete='on'
           (input)='verifyName()' placeholder='Me chamo...'></ion-input>
@@ -34,7 +34,7 @@
       </ion-item>
       <br>
 
-      <ion-item>
+      <ion-item >
         <ion-label stacked>Data de nascimento</ion-label>
         <ion-datetime displayFormat='DD de MMMM de YYYY' pickerFormat='DD MMM YYYY' monthNames='Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
           monthShortNames='Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez' [disabled]='isCreating' [(ngModel)]='userProfile.dateOfBirth'
@@ -71,12 +71,12 @@
       <br>
       <br>
 
-      <button mode='ios' ion-button large full [disabled]='isButtonDisabled' (click)='saveUserProfile()'>
+      <button mode='ios' ion-button large block [disabled]='isButtonDisabled' (click)='saveUserProfile()'>
         <span [hidden]='hideLabel'> {{ buttonLabel }} </span>
         <ion-spinner [hidden]='!hideLabel' color='light'></ion-spinner>
       </button>
 
-    </section>
+    </div>
 
   </main>
 

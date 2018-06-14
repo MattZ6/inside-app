@@ -1,9 +1,18 @@
 page-edit-profile {
+  ion-content {
+    background: linear-gradient(#f7f7f7);
+  }
+
   ion-datetime,
   ion-input,
   ion-radio {
     color: #696969;
     font-weight: 500;
+  }
+
+  .item{
+    border-radius: 5px;
+    border: none;
   }
 
   ion-note {

@@ -1,10 +1,10 @@
 page-profile {
   ion-content {
-    background: linear-gradient(#f1f1f1);
+    background: linear-gradient(#f7f7f7);
   }
 
   .background {
-    background: linear-gradient(rgba(255,255,255,.6)),url('../assets/imgs/back.jpg');
+    background: linear-gradient(rgba(174, 223, 255, 0.6)),url('../assets/imgs/back.jpg');
     background-size: cover;
     height: 50vh;
   }
@@ -13,9 +13,9 @@ page-profile {
     width: 54vw;
     height: 54vw;
     margin: 2vh 23vw 4vh;
-    border: 5px solid #ffffff;
+    border: 6px solid #ffffff;
     border-radius: 100%;
-    box-shadow: 8px 10px 20px rgba(82, 82, 82, 0.6);
+    box-shadow: 8px 10px 20px rgba(0, 0, 0, 0.295);
   }
 
   .changePhoto {
@@ -28,14 +28,25 @@ page-profile {
 
     h1 {
       text-transform: capitalize;
-      color: #333333;
+      color: #383838;
+      font-weight: bold;
     }
 
     .user-age {
       margin-top: -1%;
       font-size: 1.2em;
-      color: #333333;
+      color: #383838;
+      font-weight: bolder;
     }
+
+    p {
+      color: #696969;
+      font-weight: 500;
+    }
+  }
+
+  .borderRadius {
+    border-radius: 8px;
   }
 
 }

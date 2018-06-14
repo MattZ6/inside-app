@@ -16,11 +16,9 @@ export class MyApp {
 
   constructor(platform: Platform, splashScreen: SplashScreen, statusBar: StatusBar, screen: ScreenOrientation, headerColor: HeaderColor) {
 
-    screen.lock(screen.ORIENTATIONS.PORTRAIT);
 
     firebase.initializeApp(FIREBASE_CONFIG);
 
-    headerColor.tint('#31ACFF');
 
     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
 
@@ -39,6 +37,8 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       splashScreen.hide();
       statusBar.hide();
+      headerColor.tint('#31ACFF');
+      //screen.lock(screen.ORIENTATIONS.PORTRAIT);
     });
   }
 }

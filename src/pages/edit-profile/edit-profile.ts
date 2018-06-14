@@ -92,8 +92,8 @@ export class EditProfilePage {
       this.toast.create({
         message: 'Perfil alterado com sucesso!',
         cssClass: 'valid',
-        duration: 1800,
-        position: 'bottom'
+        duration: 1500,
+        position: 'middle'
       }).present();
 
       this.navCtrl.pop();
