@@ -31,7 +31,7 @@ export class LoginPage {
   isCreating: boolean;
 
   constructor(private toast: ToastController, private profileProvider: ProfileProvider, private platform: Platform, private statusBar: StatusBar, public navCtrl: NavController) {
-   
+
   }
 
   ionViewWillEnter() {

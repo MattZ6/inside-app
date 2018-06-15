@@ -5,6 +5,7 @@ import { ProfileProvider } from '../../providers/profile/profile';
 import { Profile } from './../../models/Profile';
 import { Vibration } from '@ionic-native/vibration';
 import { NativeAudio } from '@ionic-native/native-audio';
+import firebase from 'firebase';
 
 @IonicPage()
 @Component({
@@ -22,6 +23,7 @@ export class MainPage {
 
   topicClass: string = 'activity';
   isPlaying: boolean = false;
+  canVibrate: boolean = true;
 
   modifiedTopics = [];
   originalTopics = [
@@ -58,8 +60,16 @@ export class MainPage {
     });
   }
 
-  ionViewCanEnter() {
+  ionViewWillEnter() {
+    if (this.userProfile.photoUrl) {
+      const pathReference = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
+      pathReference.getDownloadURL().then(profilePicture => {
+        this.userPicture = profilePicture;
+      })
+    }
+  }
 
+  ionViewCanEnter() {
 
     this.profileProvider.getUserProfile().once('value', userProfileSnapshot => {
       this.userProfile = userProfileSnapshot.val();
@@ -71,9 +81,7 @@ export class MainPage {
       } else {
         return true;
       }
-
     })
-
   }
 
   ionViewDidLoad() {
@@ -86,10 +94,6 @@ export class MainPage {
 
     this.profileProvider.getUserProfile().on('value', userProfileSnapshot => {
       this.userProfile = userProfileSnapshot.val();
-
-      if (this.userProfile.photoUrl && this.userProfile.photoUrl != null) {
-        this.userPicture = this.userProfile.photoUrl;
-      }
 
       this.userMessage = this.userProfile.gender == 'man' ? 'Seja bem-vindo!' : 'Seja bem-vinda!';
 
@@ -104,22 +108,24 @@ export class MainPage {
 
   playSound(topic) {
 
-    if (!this.isPlaying) {
+    if (this.canVibrate) {
+      this.vibrator.vibrate(180);
+      this.canVibrate = false;
 
-      this.topicClass = 'desabledActivity';
-      this.audio.preloadSimple('audioMessage', topic.urlSound).then(() => {
-        this.audio.play('audioMessage', () => {
+      if (!this.isPlaying) {
+        this.isPlaying = true;
+        this.topicClass = 'desabledActivity';
+        this.audio.preloadSimple('audioMessage', topic.urlSound).then(() => {
+          this.audio.play('audioMessage', () => {
 
-          this.vibrator.vibrate(180);
-          this.isPlaying = true;
+            this.audio.unload('audioMessage').then(() => {
+              this.topicClass = 'activity';
+              this.isPlaying = false;
+            });
 
-          this.audio.unload('audioMessage').then(() => {
-            this.topicClass = 'activity';
-            this.isPlaying = false;
           });
-
         });
-      });
+      }
     }
   }
 

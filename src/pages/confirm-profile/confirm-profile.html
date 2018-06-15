@@ -49,13 +49,13 @@
       </ion-item>
 
       <div margin-top padding>
-        <h2 text-center>Tudo pronto? Podemos começar?</h2>
+        <h2 class='textMedium' ion-text margin-bottom text-center color='dark'>Tudo pronto? Podemos começar?</h2>
         <br>
         <button margin-top ion-button block large mode='ios' [disabled]='isCreating' (click)='createUserProfile()'>
           <span [hidden]='isCreating'>Sim, vamos lá!</span>
           <ion-spinner [hidden]='!isCreating' color='light'></ion-spinner>
         </button>
-        <button ion-button clear full large mode='ios' class='textSmall' [disabled]='isCreating' (click)='updateProfile()'>Preciso alterar algumas informações</button>
+        <button margin-top ion-button clear full large mode='ios' class='textSmall' [disabled]='isCreating' (click)='updateProfile()'>Preciso alterar algumas informações</button>
       </div>
     </ion-card>
 

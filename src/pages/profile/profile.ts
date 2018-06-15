@@ -41,14 +41,19 @@ export class ProfilePage {
 
       if (this.userProfile != null) {
         this.genderIcon = this.userProfile.gender == 'man' ? 'ios-man' : 'ios-woman';
-
-        if (this.userProfile.photoUrl && this.userProfile.photoUrl != null) {
-          this.userPicture = this.userProfile.photoUrl;
-        }
       }
 
       load.dismiss();
     })
+  }
+
+  ionViewWillEnter() {
+    if (this.userProfile.photoUrl) {
+      const pathReference = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
+      pathReference.getDownloadURL().then(profilePicture => {
+        this.userPicture = profilePicture;
+      })
+    }
   }
 
   async  takePicture() {
@@ -72,12 +77,14 @@ export class ProfilePage {
       const pictures = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
       pictures.putString(image, 'data_url').then(() => {
 
-        const pathReference = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
+        const pathReference = pictures;
 
         pathReference.getDownloadURL().then(url => {
 
-          this.userPicture = url;
-          this.userProfile.photoUrl = this.userPicture;
+          this.profileProvider.setUserProfilePicture(url).then(() => {
+            this.userPicture = url;
+          })
+
 
         }).catch(function (error) {
 
@@ -111,6 +118,8 @@ export class ProfilePage {
 
   logoutUser() {
 
+    let name = this.userProfile.firstName;
+
     let alert = this.alertCtrl.create({
       title: 'Sair',
       message: 'Você realmente deseja se desconectar?',
@@ -136,8 +145,8 @@ export class ProfilePage {
               load.dismiss().then(() => {
                 this.navCtrl.setRoot('WelcomePage').then(() => {
                   this.toast.create({
-                    message: 'Desconectado com sucesso!',
-                    duration: 1800,
+                    message: 'Até logo, ' + name + '! :)',
+                    duration: 2000,
                     position: 'top',
                     cssClass: 'valid'
                   }).present();

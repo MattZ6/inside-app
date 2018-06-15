@@ -1,11 +1,14 @@
 page-confirm-profile {
+  .info {
+    z-index: 50;
+    margin-top: -18vh;
+  }
 
-    .info{
-        z-index: 50;
-        margin-top: -18vh;
-    }
+  .textSmall {
+    font-size: 1.5rem;
+  }
 
-    .textSmall{
-        font-size: 1.5rem;
-    }
+  .textMedium{
+      font-size: 1.9rem;
+  }
 }

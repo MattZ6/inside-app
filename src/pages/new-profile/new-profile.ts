@@ -122,12 +122,14 @@ export class NewProfilePage {
       const pictures = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
       pictures.putString(image, 'data_url').then(() => {
 
-        const pathReference = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
+        const pathReference = pictures;
 
         pathReference.getDownloadURL().then(url => {
 
-          this.profilePicture = url;
-          this.profile.photoUrl = this.profilePicture;
+          this.profileProvider.setUserProfilePicture(url).then(() => {
+            this.profilePicture = url;
+          })
+
 
         }).catch(function (error) {
 
