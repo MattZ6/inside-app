@@ -29,7 +29,8 @@ export class ProfileProvider {
       name: user.name,
       gender: user.gender,
       dateOfBirth: user.dateOfBirth,
-      yearsOld: user.yearsOld
+      yearsOld: user.yearsOld,
+      photoUrl: user.photoUrl
     });
 
   }

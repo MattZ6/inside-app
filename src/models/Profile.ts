@@ -6,5 +6,6 @@ export interface Profile {
     gender: string;
     dateOfBirth: any;
     yearsOld: number;
+    photoUrl: string;
 
 }

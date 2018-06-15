@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import firebase from 'firebase';
 import { Profile } from '../../models/Profile';
 import { ProfileProvider } from '../../providers/profile/profile';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
 @IonicPage()
@@ -16,6 +17,8 @@ export class NewProfilePage {
   profile = {} as Profile;
   maxYear: number;
 
+  profilePicture: string = 'assets/imgs/user.png ';
+
   isValidGender: boolean = false;
   isValidName: boolean = false;
   isValidAge: boolean = false;
@@ -26,7 +29,8 @@ export class NewProfilePage {
   buttonLabel = 'Criar perfil';
   hideLabel = false;
 
-  constructor(private profileProvider: ProfileProvider, private platform: Platform, private statusBar: StatusBar, private toast: ToastController, public navCtrl: NavController) {
+  constructor(private profileProvider: ProfileProvider, private platform: Platform, private statusBar: StatusBar,
+    private camera: Camera, private toast: ToastController, public navCtrl: NavController) {
 
     this.platform.ready().then(() => {
       this.statusBar.styleLightContent();
@@ -97,6 +101,64 @@ export class NewProfilePage {
     }
   }
 
+  async  takePicture() {
+
+    try {
+
+      const options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        sourceType: this.camera.PictureSourceType.CAMERA,
+        correctOrientation: true,
+        allowEdit: true,
+        encodingType: this.camera.EncodingType.JPEG,
+        targetWidth: 749,
+        targetHeight: 720,
+        saveToPhotoAlbum: true
+      }
+
+      const result = await this.camera.getPicture(options);
+      const image = `data:image/jpeg;base64,${result}`;
+      const pictures = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
+      pictures.putString(image, 'data_url').then(() => {
+
+        const pathReference = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
+
+        pathReference.getDownloadURL().then(url => {
+
+          this.profilePicture = url;
+          this.profile.photoUrl = this.profilePicture;
+
+        }).catch(function (error) {
+
+          switch (error.code) {
+
+            case 'storage/object_not_found':
+              // File doesn't exist
+              break;
+
+            case 'storage/unauthorized':
+              // User doesn't have permission to access the object
+              break;
+
+            case 'storage/canceled':
+              // User canceled the upload
+              break;
+
+            case 'storage/unknown':
+              // Unknown error occurred, inspect the server response
+              break;
+          }
+
+        })
+
+      });
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   createUserProfile() {
 
     this.isCreating = true;
@@ -124,7 +186,7 @@ export class NewProfilePage {
     const userId: string = firebase.auth().currentUser.uid;
     firebase.database().ref(`/Profile/${userId}`).off();
     return firebase.auth().signOut().then(() => {
-      this.navCtrl.pop();
+      this.navCtrl.setRoot('WelcomePage');
     });
   }
 

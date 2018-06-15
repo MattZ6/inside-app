@@ -22,9 +22,9 @@
 <ion-content>
 
   <div class='background'>
-    <img class='profilePicture' src='assets/imgs/user.jpg'>
+    <img class='profilePicture' id='photo' [src]='profilePicture'>
     <ion-fab class='changePhoto' edge right>
-      <button ion-fab icon-only color='light' [disabled]='isCreating'>
+      <button ion-fab icon-only color='light' [disabled]='isCreating' (click)='takePicture()'>
         <ion-icon name='camera'></ion-icon>
       </button>
     </ion-fab>

@@ -78,6 +78,10 @@ export class EditProfilePage {
 
   }
 
+  ionViewCanLeave() {
+    return !this.isCreating;
+  }
+
   saveUserProfile() {
     this.isCreating = true;
     this.hideLabel = true;
@@ -88,13 +92,6 @@ export class EditProfilePage {
       this.hideLabel = false;
       this.isButtonDisabled = false;
       this.isCreating = false;
-
-      this.toast.create({
-        message: 'Perfil alterado com sucesso!',
-        cssClass: 'valid',
-        duration: 1500,
-        position: 'middle'
-      }).present();
 
       this.navCtrl.pop();
 

@@ -7,8 +7,8 @@ import { Vibration } from '@ionic-native/vibration';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { HeaderColor } from '@ionic-native/header-color';
+import { Camera } from '@ionic-native/camera';
 
-import { AuthProvider } from '../providers/auth/auth';
 import { ProfileProvider } from '../providers/profile/profile';
 
 import { MyApp } from './app.component';
@@ -33,8 +33,8 @@ import { MyApp } from './app.component';
     HeaderColor,
     ScreenOrientation,
     NativeAudio,
-    AuthProvider,
     ProfileProvider,
+    Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
   ]
 })

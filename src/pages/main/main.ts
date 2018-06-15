@@ -17,7 +17,7 @@ export class MainPage {
 
   userProfile = {} as Profile;
   username: string;
-  userUrlImage: string = 'assets/imgs/user.png';
+  userPicture: string = 'assets/imgs/user.png';
   userMessage: string = 'Seja bem-vindo!';
 
   topicClass: string = 'activity';
@@ -50,12 +50,30 @@ export class MainPage {
 
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.platform.ready().then(() => {
       this.statusBar.show();
       this.statusBar.styleDefault();
       this.statusBar.backgroundColorByHexString('#ffffff');
     });
+  }
+
+  ionViewCanEnter() {
+
+
+    this.profileProvider.getUserProfile().once('value', userProfileSnapshot => {
+      this.userProfile = userProfileSnapshot.val();
+    }).then(() => {
+
+      if (this.userProfile.name == null) {
+        this.navCtrl.push('NewProfilePage');
+        return false;
+      } else {
+        return true;
+      }
+
+    })
+
   }
 
   ionViewDidLoad() {
@@ -68,6 +86,10 @@ export class MainPage {
 
     this.profileProvider.getUserProfile().on('value', userProfileSnapshot => {
       this.userProfile = userProfileSnapshot.val();
+
+      if (this.userProfile.photoUrl && this.userProfile.photoUrl != null) {
+        this.userPicture = this.userProfile.photoUrl;
+      }
 
       this.userMessage = this.userProfile.gender == 'man' ? 'Seja bem-vindo!' : 'Seja bem-vinda!';
 
@@ -82,15 +104,13 @@ export class MainPage {
 
   playSound(topic) {
 
-    this.vibrator.vibrate(1000);
-
     if (!this.isPlaying) {
 
       this.topicClass = 'desabledActivity';
-
       this.audio.preloadSimple('audioMessage', topic.urlSound).then(() => {
         this.audio.play('audioMessage', () => {
 
+          this.vibrator.vibrate(180);
           this.isPlaying = true;
 
           this.audio.unload('audioMessage').then(() => {

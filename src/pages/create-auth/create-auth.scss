@@ -1,7 +1,7 @@
 page-create-auth {
   ion-content {
-      background: linear-gradient(#f7f7f7);
-   
+    background: linear-gradient(#f7f7f7);
+
     .titles {
       z-index: 11;
       margin-top: 12%;
@@ -17,10 +17,10 @@ page-create-auth {
       color: #696969;
     }
 
-    ion-slides {
-      position: absolute;
-      height: 50%;
-    }
+    // ion-slides {
+    //   //position: absolute;
+    //   //height: 50%;
+    // }
 
     .itemRound {
       border-radius: 5px;

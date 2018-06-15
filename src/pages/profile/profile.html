@@ -25,10 +25,10 @@
 
   <div class='background'>
     <div>
-        <img class='profilePicture' src='assets/imgs/user.jpg'>
+      <img class='profilePicture' [src]='userPicture'>
     </div>
     <ion-fab class='changePhoto' edge right>
-      <button ion-fab icon-only color='primary'>
+      <button ion-fab icon-only color='primary' (click)='takePicture()'>
         <ion-icon name='camera' color='light'></ion-icon>
       </button>
     </ion-fab>
@@ -57,7 +57,7 @@
       <button ion-item navPush='EditProfilePage'>
         <ion-icon name='ios-glasses' item-start></ion-icon>
         Editar perfil
-        <ion-icon showWhen='android, windows' small item-end name='ios-arrow-forward'></ion-icon>
+        <ion-icon showWhen='android, windows' small item-end name='ios-arrow-forward' color='dark'></ion-icon>
       </button>
     </ion-card>
 

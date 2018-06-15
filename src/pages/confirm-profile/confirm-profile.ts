@@ -24,12 +24,12 @@ export class ConfirmProfilePage {
   }
 
   ionViewDidLoad() {
-    // if (this.navParams.get('profile') != null) {
-    //   this.profile = this.navParams.get('profile');
-    //   this.setColorLabelAndGenderIcon();
-    // } else {
-    //   this.navCtrl.pop();
-    // }
+    if (this.navParams.get('profile') != null) {
+      this.profile = this.navParams.get('profile');
+      this.setColorLabelAndGenderIcon();
+    } else {
+      this.navCtrl.pop();
+    }
   }
 
   setColorLabelAndGenderIcon() {
@@ -55,8 +55,6 @@ export class ConfirmProfilePage {
         cssClass: 'valid',
         duration: 1800,
         position: 'top',
-        showCloseButton: true,
-        closeButtonText: '=D'
       }).present();
 
       this.navCtrl.setRoot('MainPage');
