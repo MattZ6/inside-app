@@ -91,20 +91,20 @@ export class ProfilePage {
           switch (error.code) {
 
             case 'storage/object_not_found':
-              // File doesn't exist
+              console.log('Este arquivo não existe');
+
               break;
 
             case 'storage/unauthorized':
-              // User doesn't have permission to access the object
+              console.log('O usuário não tem permissão para acessar este arquivo');
+
               break;
 
             case 'storage/canceled':
-              // User canceled the upload
+              console.log('O usuário cancelou o upload do arquivo');
+
               break;
 
-            case 'storage/unknown':
-              // Unknown error occurred, inspect the server response
-              break;
           }
 
         })

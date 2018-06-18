@@ -13,6 +13,8 @@ import { Profile } from './../../models/Profile';
 })
 export class LoginPage {
 
+  userProfile = {} as Profile;
+
   email: string;
   password: string;
   passwordUnlock: string;
@@ -126,12 +128,10 @@ export class LoginPage {
         this.buttonLabel = 'Ok';
         this.hideLabel = false;
 
-        let userProfile = {} as Profile;
-
         this.profileProvider.getUserProfile().once('value', userProfileSnapshot => {
-          userProfile = userProfileSnapshot.val();
+          this.userProfile = userProfileSnapshot.val();
         }).then(() => {
-          if (userProfile.name != null) {
+          if (this.userProfile.name != null) {
             this.navCtrl.setRoot('MainPage');
           } else {
             this.navCtrl.push('NewProfilePage');

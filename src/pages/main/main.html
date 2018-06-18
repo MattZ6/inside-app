@@ -43,20 +43,20 @@
 <ion-footer>
   <ion-toolbar color='primary'>
     <ion-segment [(ngModel)]='cattegories' color='light'>
-      <ion-segment-button icon-start value='alimentacao' (ionSelect)='setCattegorie("Alimentação")' selected>
-        <ion-icon name='pizza'></ion-icon>
+      <ion-segment-button value='alimentacao' (ionSelect)='setCattegorie("Diálogo")'>
+        Diálogo
       </ion-segment-button>
-      <ion-segment-button icon-start value='higiene' (ionSelect)='setCattegorie("Higiêne")'>
-        <ion-icon name='leaf'></ion-icon>
+      <ion-segment-button value='alimentacao' (ionSelect)='setCattegorie("Alimentação")'>
+        Alimentação
       </ion-segment-button>
-      <ion-segment-button value='2'>
-        <ion-icon name='planet'></ion-icon>
+      <ion-segment-button value='basicas' (ionSelect)='setCattegorie("Necessidades Básicas")'>
+        Necessidades
       </ion-segment-button>
-      <ion-segment-button value='3'>
-        <ion-icon name='heart'></ion-icon>
+      <ion-segment-button value='higiene' (ionSelect)='setCattegorie("Higiêne")'>
+        Higiêne
       </ion-segment-button>
-      <ion-segment-button value='4'>
-        <ion-icon name='flame'></ion-icon>
+      <ion-segment-button value='alimentacao' (ionSelect)='setCattegorie("Lazer")'>
+        Lazer
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>

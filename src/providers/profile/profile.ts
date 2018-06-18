@@ -12,7 +12,7 @@ export class ProfileProvider {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.currentUser = user;
-        this.userProfile = firebase.database().ref(`/Profile/${user.uid}`);
+        this.userProfile = firebase.database().ref('/Profile/').child(user.uid);
       }
     });
   }
@@ -21,22 +21,22 @@ export class ProfileProvider {
     return this.userProfile;
   }
 
-  createUserProfile(user: any): Promise<any> {
+  createAndUpdateUserProfile(user: any): Promise<any> {
 
-    return this.userProfile.set({
-      email: this.currentUser.email,
-      firstName: user.firstName,
-      name: user.name,
-      gender: user.gender,
-      dateOfBirth: user.dateOfBirth,
-      yearsOld: user.yearsOld
+    return this.userProfile.update({
+      'email': this.currentUser.email,
+      'firstName': user.firstName,
+      'name': user.name,
+      'gender': user.gender,
+      'dateOfBirth': user.dateOfBirth,
+      'yearsOld': user.yearsOld
     });
 
   }
 
   setUserProfilePicture(picture: string): Promise<any> {
-    return this.userProfile.set({
-      photoUrl: picture
+    return this.userProfile.update({
+      'photoUrl': picture
     })
   }
 

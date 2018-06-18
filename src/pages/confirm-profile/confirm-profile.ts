@@ -48,7 +48,7 @@ export class ConfirmProfilePage {
 
     this.isCreating = true;
 
-    this.profileProvider.createUserProfile(this.profile).then(() => {
+    this.profileProvider.createAndUpdateUserProfile(this.profile).then(() => {
 
       this.toast.create({
         message: 'Perfil criado com sucesso!',

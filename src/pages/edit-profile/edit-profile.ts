@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController } from 'ionic-angular';
 import { Profile } from './../../models/Profile';
 import { ProfileProvider } from '../../providers/profile/profile';
 
@@ -20,7 +20,7 @@ export class EditProfilePage {
   buttonLabel = 'Salvar';
   hideLabel = false;
 
-  constructor(private loadingCtrl: LoadingController, private profileProvider: ProfileProvider, private toast: ToastController, public navCtrl: NavController) {
+  constructor(private loadingCtrl: LoadingController, private profileProvider: ProfileProvider, public navCtrl: NavController) {
   }
 
 
@@ -87,7 +87,7 @@ export class EditProfilePage {
     this.hideLabel = true;
     this.isButtonDisabled = true;
 
-    this.profileProvider.createUserProfile(this.userProfile).then(() => {
+    this.profileProvider.createAndUpdateUserProfile(this.userProfile).then(() => {
 
       this.hideLabel = false;
       this.isButtonDisabled = false;

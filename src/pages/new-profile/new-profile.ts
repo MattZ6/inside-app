@@ -136,20 +136,17 @@ export class NewProfilePage {
           switch (error.code) {
 
             case 'storage/object_not_found':
-              // File doesn't exist
+              console.log('Este arquivo não existe');
               break;
 
             case 'storage/unauthorized':
-              // User doesn't have permission to access the object
+              console.log('O usuário não tem permissão para acessar este arquivo');
               break;
 
             case 'storage/canceled':
-              // User canceled the upload
+              console.log('O usuário cancelou o upload');
               break;
 
-            case 'storage/unknown':
-              // Unknown error occurred, inspect the server response
-              break;
           }
 
         })
@@ -167,7 +164,7 @@ export class NewProfilePage {
     this.hideLabel = true;
     this.isButtonDisabled = true;
 
-    this.profileProvider.createUserProfile(this.profile).then(() => {
+    this.profileProvider.createAndUpdateUserProfile(this.profile).then(() => {
 
       this.toast.create({
         message: 'Perfil criado com sucesso!',
