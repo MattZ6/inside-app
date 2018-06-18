@@ -38,7 +38,7 @@ export class MyApp {
       splashScreen.hide();
       statusBar.hide();
       headerColor.tint('#31ACFF');
-      // screen.lock(screen.ORIENTATIONS.PORTRAIT);
+      //screen.lock(screen.ORIENTATIONS.PORTRAIT);
     });
   }
 }

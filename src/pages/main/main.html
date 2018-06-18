@@ -42,9 +42,59 @@
 
 <ion-footer>
   <ion-toolbar color='primary'>
-    <ion-segment [(ngModel)]='cattegories' color='light'>
-      <ion-segment-button value='alimentacao' (ionSelect)='setCattegorie("Diálogo")'>
-        Diálogo
+    <ion-row no-margin no-padding>
+      <ion-col [class]='isEnableChat' >
+        <a (click)='setCattegorie("Diálogo")' class='standard' text-center>
+          <p ion-text color='light'>
+            <img src='assets/icons/chat.png'>
+            <br> Diálogo
+          </p>
+        </a>
+      </ion-col>
+      <ion-col [class]='isEnableAlimentation'>
+        <a (click)='setCattegorie("Alimentação")' class='standard' text-center>
+          <p ion-text color='light'>
+            <img src='assets/icons/food.png'>
+            <br> Alimentação
+          </p>
+        </a>
+      </ion-col>
+      <ion-col [class]='isEnableNeeds'>
+        <a (click)='setCattegorie("Necessidades Básicas")' class='standard' text-center>
+          <p ion-text color='light' text-center>
+            <img src='assets/icons/heart.png'>
+            <br> Necessidades Básicas
+          </p>
+        </a>
+      </ion-col>
+      <ion-col [class]='isEnableHygiene'>
+        <a (click)='setCattegorie("Higiêne")' class='standard' text-center>
+          <p ion-text color='light'>
+            <img src='assets/icons/higiene.png'>
+            <br> Higiêne
+          </p>
+        </a>
+      </ion-col>
+      <ion-col [class]='isEnableRecreation'>
+        <a (click)='setCattegorie("Lazer")' class='standard' text-center>
+          <p ion-text color='light'>
+            <img src='assets/icons/lazer.png'>
+            <br> Lazer
+          </p>
+        </a>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-segment [(ngModel)]='cattegories' color='light' mode='md'>
+      <ion-segment-button value='dialogo' (ionSelect)='setCattegorie("Diálogo")'>
+        <ion-row>
+          <ion-col>
+            Diálogo
+          </ion-col>
+          <ion-col>
+            Diálogo
+          </ion-col>
+        </ion-row>
       </ion-segment-button>
       <ion-segment-button value='alimentacao' (ionSelect)='setCattegorie("Alimentação")'>
         Alimentação
@@ -55,9 +105,9 @@
       <ion-segment-button value='higiene' (ionSelect)='setCattegorie("Higiêne")'>
         Higiêne
       </ion-segment-button>
-      <ion-segment-button value='alimentacao' (ionSelect)='setCattegorie("Lazer")'>
+      <ion-segment-button value='lazer' (ionSelect)='setCattegorie("Lazer")'>
         Lazer
       </ion-segment-button>
-    </ion-segment>
+    </ion-segment> -->
   </ion-toolbar>
 </ion-footer>

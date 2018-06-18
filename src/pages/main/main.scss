@@ -8,6 +8,8 @@ page-main {
   }
 
   ion-content {
+    background: linear-gradient(#f7f7f7);
+
     .live-background {
       width: 100%;
       height: 50%;
@@ -141,13 +143,41 @@ page-main {
     transition: .3s;
   }
 
-  .footer {
-    position: absolute;
-    bottom: 0;
+  ion-row {
+    width: 100%;
+
+    ion-col {
+      width: 20%;
+    }
+  }
+
+  .standard {
+    img {
+      width: 7vw;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  .disabled {
+    opacity: .5;
+    transition: .3s;
+  }
+
+  .enable {
+    opacity: 1;
+    transition: .2s;
+
+    p {
+      font-weight: bold;
+    }
   }
 
   h5 {
     color: #FFF;
     transition: .5s;
   }
+
 }

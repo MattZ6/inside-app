@@ -27,25 +27,7 @@ export class MainPage {
 
   yearsCattegorie: string;
   modifiedTopics = [];
-  originalTopics = [
-    { title: 'Sono', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/sono.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/sono.mp3`, notification: 'Estou com sono' },
-    { title: 'Calor', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/calor.mp3`, notification: 'Estou com calor' },
-    { title: 'Frio', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/sono.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/frio.mp3`, notification: 'Estou com frio' },
-    { title: 'Ir ao banheiro', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/banheiro.mp3`, notification: 'Preciso ir ao banheiro' },
-    { title: 'Escovar os dentes', cattegorie: 'Higiêne', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/escovar-dentes.mp3`, notification: 'Quero escovar meus dentes' },
-    { title: 'Tomar banho', cattegorie: 'Higiêne', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/banho.mp3`, notification: 'Quero tomar banho' },
-    { title: 'Trocar de roupa', cattegorie: 'Higiêne', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/trocar-roupa.mp3`, notification: 'Quero trocar de roupa' },
-    { title: 'Fome', cattegorie: 'Alimentação', urlImagem: 'assets/imgs/topicos/iceCream.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/fome.mp3`, notification: 'Estou com fome' },
-    { title: 'Sede', cattegorie: 'Alimentação', urlImagem: 'assets/imgs/topicos/comida.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/sede.mp3`, notification: 'Estou com sede' },
-    { title: 'Brincar', cattegorie: 'Lazer', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/brincar.mp3`, notification: 'Quero brincar' },
-    { title: 'Assistir', cattegorie: 'Lazer', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/assitir.mp3`, notification: 'Quero assistir' },
-    { title: 'Olá', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/ola.mp3`, notification: 'Olá!' },
-    { title: 'Bom dia', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/bom-dia.mp3`, notification: 'Bom dia' },
-    { title: 'Boa tarde', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/boa-tarde.mp3`, notification: 'Boa tarde' },
-    { title: 'Boa noite', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/boa-noite.mp3`, notification: 'Boa noite' },
-    { title: 'Sim', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/sim.mp3`, notification: 'Sim' },
-    { title: 'Não', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/nao.mp3`, notification: 'Não' },
-  ];
+  originalTopics = [];
 
   title: string;
   cattegorie: string;
@@ -53,6 +35,12 @@ export class MainPage {
 
   hideLeftButton: string = 'left-button-hide';
   hideRightButton: string = 'right-button';
+
+  isEnableNeeds: string = 'enable';
+  isEnableHygiene: string = 'disabled';
+  isEnableChat: string = 'disabled';
+  isEnableAlimentation: string = 'disabled';
+  isEnableRecreation: string = 'disabled';
 
   constructor(private profileProvider: ProfileProvider, private loadingCtrl: LoadingController,
     private vibrator: Vibration, private audio: NativeAudio, private statusBar: StatusBar, private platform: Platform, public navCtrl: NavController) {
@@ -93,6 +81,16 @@ export class MainPage {
     this.profileProvider.getUserProfile().on('value', userProfileSnapshot => {
       this.userProfile = userProfileSnapshot.val();
 
+      if (this.userProfile.yearsOld <= 11) {
+        this.yearsCattegorie = 'child';
+      } else if (this.userProfile.yearsOld > 11 && this.userProfile.yearsOld <= 20) {
+        this.yearsCattegorie = 'teenager';
+      } else if (this.userProfile.yearsOld > 20) {
+        this.yearsCattegorie = 'adult';
+      }
+
+      this.fillOriginalTopics();
+
       this.userMessage = this.userProfile.gender == 'man' ? 'Seja bem-vindo!' : 'Seja bem-vinda!';
 
       const pathReference = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
@@ -120,14 +118,7 @@ export class MainPage {
 
   ionViewWillEnter() {
 
-
-    if (this.userProfile.yearsOld <= 11) {
-      this.yearsCattegorie = 'child';
-    } else if (this.userProfile.yearsOld > 11 && this.userProfile.yearsOld <= 20) {
-      this.yearsCattegorie = 'teenager';
-    } else if (this.userProfile.yearsOld > 20) {
-      this.yearsCattegorie = 'adult';
-    }
+    this.slides.slideTo(0, 500);
 
     /*
     *
@@ -205,7 +196,40 @@ export class MainPage {
 
   }
 
+  disableCattegories() {
+    this.isEnableNeeds = 'disabled';
+    this.isEnableAlimentation = 'disabled';
+    this.isEnableChat = 'disabled';
+    this.isEnableHygiene = 'disabled';
+    this.isEnableRecreation = 'disabled';
+  }
+
   setCattegorie(cattegorie) {
+
+    this.disableCattegories();
+
+    switch (cattegorie) {
+      case 'Necessidades Básicas':
+        this.isEnableNeeds = 'enable';
+        break;
+
+      case 'Diálogo':
+        this.isEnableChat = 'enable';
+        break;
+
+      case 'Higiêne':
+        this.isEnableHygiene = 'enable';
+        break;
+
+      case 'Lazer':
+        this.isEnableRecreation = 'enable';
+        break;
+
+      case 'Alimentação':
+        this.isEnableAlimentation = 'enable';
+        break;
+    }
+
     this.modifiedTopics = this.originalTopics.filter((topic) => {
 
       if (topic.cattegorie == cattegorie) {
@@ -217,6 +241,29 @@ export class MainPage {
 
     this.slides.slideTo(0, 500);
     this.title = this.modifiedTopics[0].title;
+  }
+
+  fillOriginalTopics() {
+
+    this.originalTopics = [{ title: 'Sono', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/sono.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/sono.mp3`, notification: 'Estou com sono' },
+    { title: 'Calor', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/calor.mp3`, notification: 'Estou com calor' },
+    { title: 'Frio', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/sono.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/frio.mp3`, notification: 'Estou com frio' },
+    { title: 'Ir ao banheiro', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/banheiro.mp3`, notification: 'Preciso ir ao banheiro' },
+    { title: 'Escovar os dentes', cattegorie: 'Higiêne', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/escovar-dentes.mp3`, notification: 'Quero escovar meus dentes' },
+    { title: 'Tomar banho', cattegorie: 'Higiêne', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/banho.mp3`, notification: 'Quero tomar banho' },
+    { title: 'Trocar de roupa', cattegorie: 'Higiêne', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/trocar-roupa.mp3`, notification: 'Quero trocar de roupa' },
+    { title: 'Fome', cattegorie: 'Alimentação', urlImagem: 'assets/imgs/topicos/iceCream.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/fome.mp3`, notification: 'Estou com fome' },
+    { title: 'Sede', cattegorie: 'Alimentação', urlImagem: 'assets/imgs/topicos/comida.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/sede.mp3`, notification: 'Estou com sede' },
+    { title: 'Brincar', cattegorie: 'Lazer', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/brincar.mp3`, notification: 'Quero brincar' },
+    { title: 'Assistir', cattegorie: 'Lazer', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/assistir.mp3`, notification: 'Quero assistir' },
+    { title: 'Olá', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/ola.mp3`, notification: 'Olá!' },
+    { title: 'Bom dia', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/bom-dia.mp3`, notification: 'Bom dia' },
+    { title: 'Boa tarde', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/boa-tarde.mp3`, notification: 'Boa tarde' },
+    { title: 'Boa noite', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/boa-noite.mp3`, notification: 'Boa noite' },
+    { title: 'Sim', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/sim.mp3`, notification: 'Sim' },
+    { title: 'Não', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/nao.mp3`, notification: 'Não' },
+    ];
+
   }
 
   goToProfilePage() {
