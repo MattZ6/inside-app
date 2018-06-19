@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicPage, NavController, ToastController, Platform } from 'ionic-angular';
-import { ProfileProvider } from '../../providers/profile/profile';
 import firebase from 'firebase';
 import { Profile } from './../../models/Profile';
 
@@ -32,7 +31,7 @@ export class LoginPage {
 
   isCreating: boolean;
 
-  constructor(private toast: ToastController, private profileProvider: ProfileProvider, private platform: Platform, private statusBar: StatusBar, public navCtrl: NavController) {
+  constructor(private toast: ToastController, private platform: Platform, private statusBar: StatusBar, public navCtrl: NavController) {
 
   }
 
@@ -128,8 +127,8 @@ export class LoginPage {
         this.buttonLabel = 'Ok';
         this.hideLabel = false;
 
-        this.profileProvider.getUserProfile().once('value', userProfileSnapshot => {
-          this.userProfile = userProfileSnapshot.val();
+        firebase.database().ref('/Profile/').child(firebase.auth().currentUser.uid).once('value', userProfile => {
+          this.userProfile = userProfile.val();
         }).then(() => {
           if (this.userProfile.name != null) {
             this.navCtrl.setRoot('MainPage');
