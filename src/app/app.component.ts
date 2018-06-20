@@ -12,7 +12,7 @@ import { HeaderColor } from '@ionic-native/header-color';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: string = 'ProfilePicturePage';
+  rootPage: string;
 
   constructor(platform: Platform, splashScreen: SplashScreen, statusBar: StatusBar, screen: ScreenOrientation, headerColor: HeaderColor) {
 
