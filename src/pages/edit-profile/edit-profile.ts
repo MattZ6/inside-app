@@ -23,8 +23,10 @@ export class EditProfilePage {
   constructor(private loadingCtrl: LoadingController, private profileProvider: ProfileProvider, public navCtrl: NavController) {
   }
 
-
   ionViewDidLoad() {
+
+    this.setValidYear();
+
     let load = this.loadingCtrl.create({
       content: 'Carregando seu perfil...'
     });
@@ -36,7 +38,6 @@ export class EditProfilePage {
       load.dismiss();
     })
   }
-
 
   verifyName() {
 

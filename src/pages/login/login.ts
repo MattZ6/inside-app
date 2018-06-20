@@ -126,7 +126,7 @@ export class LoginPage {
 
         this.buttonLabel = 'Ok';
         this.hideLabel = false;
-
+ 
         firebase.database().ref('/Profile/').child(firebase.auth().currentUser.uid).once('value', userProfile => {
           this.userProfile = userProfile.val();
         }).then(() => {

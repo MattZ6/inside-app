@@ -1,6 +1,5 @@
-import { StatusBar } from '@ionic-native/status-bar';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, Slides, LoadingController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, Slides, LoadingController } from 'ionic-angular';
 import { ProfileProvider } from '../../providers/profile/profile';
 import { Profile } from './../../models/Profile';
 import { Vibration } from '@ionic-native/vibration';
@@ -43,16 +42,8 @@ export class MainPage {
   isEnableRecreation: string = 'disabled';
 
   constructor(private profileProvider: ProfileProvider, private loadingCtrl: LoadingController,
-    private vibrator: Vibration, private audio: NativeAudio, private statusBar: StatusBar, private platform: Platform, public navCtrl: NavController) {
+    private vibrator: Vibration, private audio: NativeAudio, public navCtrl: NavController) {
 
-  }
-
-  ionViewDidEnter() {
-    this.platform.ready().then(() => {
-      this.statusBar.show();
-      this.statusBar.styleDefault();
-      this.statusBar.backgroundColorByHexString('#ffffff');
-    });
   }
 
   ionViewCanEnter() {
@@ -101,8 +92,6 @@ export class MainPage {
         });
       }
 
-
-
       load.dismiss();
 
       setTimeout(() => { this.userMessage = 'Clique aqui para ver seu Perfil' }, 2500);
@@ -122,6 +111,8 @@ export class MainPage {
 
   ionViewWillEnter() {
 
+    this.disableCattegories();
+    this.isEnableNeeds = 'enable';
     this.slides.slideTo(0, 500);
 
     /*
@@ -250,7 +241,7 @@ export class MainPage {
   fillOriginalTopics() {
 
     this.originalTopics = [
-      { title: 'Sono', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/sono.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/sono.mp3`, notification: 'Estou com sono' },
+      { title: 'Sono', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/sono.mp3`, notification: 'Estou com sono' },
       { title: 'Calor', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/calor.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/calor.mp3`, notification: 'Estou com calor' },
       { title: 'Frio', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/frio.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/frio.mp3`, notification: 'Estou com frio' },
       { title: 'Ir ao banheiro', cattegorie: 'Necessidades Básicas', urlImagem: 'assets/imgs/topicos/banheiro.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/banheiro.mp3`, notification: 'Preciso ir ao banheiro' },
@@ -264,7 +255,7 @@ export class MainPage {
       { title: 'Olá', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/ola.mp3`, notification: 'Olá!' },
       { title: 'Bom dia', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/bom-dia.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/bom-dia.mp3`, notification: 'Bom dia' },
       { title: 'Boa tarde', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/boa-tarde.mp3`, notification: 'Boa tarde' },
-      { title: 'Boa noite', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/fome1.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/boa-noite.mp3`, notification: 'Boa noite' },
+      { title: 'Boa noite', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/boa-noite.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/boa-noite.mp3`, notification: 'Boa noite' },
       { title: 'Sim', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/sim.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/sim.mp3`, notification: 'Sim' },
       { title: 'Não', cattegorie: 'Diálogo', urlImagem: 'assets/imgs/topicos/nao.png', urlSound: `assets/audio/${this.userProfile.gender}/${this.yearsCattegorie}/nao.mp3`, notification: 'Não' },
     ];

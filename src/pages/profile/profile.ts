@@ -1,7 +1,6 @@
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Component } from '@angular/core';
-import { StatusBar } from '@ionic-native/status-bar';
-import { IonicPage, NavController, LoadingController, AlertController, Platform, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, AlertController, ToastController } from 'ionic-angular';
 import firebase from 'firebase';
 import { Profile } from './../../models/Profile';
 import { ProfileProvider } from './../../providers/profile/profile';
@@ -19,16 +18,11 @@ export class ProfilePage {
   userPicture: string = 'assets/imgs/user.png';
 
   constructor(private profileProvider: ProfileProvider, private loadingCtrl: LoadingController,
-    private camera: Camera, private toast: ToastController, private alertCtrl: AlertController, private platform: Platform, private statusBar: StatusBar, public navCtrl: NavController) {
+    private camera: Camera, private toast: ToastController, private alertCtrl: AlertController, public navCtrl: NavController) {
 
   }
 
   ionViewDidLoad() {
-
-    this.platform.ready().then(() => {
-      this.statusBar.styleLightContent();
-      this.statusBar.backgroundColorByHexString('#03A9F4');
-    });
 
     let load = this.loadingCtrl.create({
       content: 'Carregando seu perfil...'

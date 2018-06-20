@@ -25,7 +25,13 @@
 
 <ion-content>
 
-  <img src='assets/imgs/user.jpg' class='profile-photo'>
+  <img [src]='profilePicture' class='profile-photo'>
+
+  <ion-fab margin-top right>
+    <button ion-fab icon-only (click)='takePicture()'>
+      <ion-icon name='md-camera' color='light'></ion-icon>
+    </button>
+  </ion-fab>
 
   <div class='info'>
     <ion-card>

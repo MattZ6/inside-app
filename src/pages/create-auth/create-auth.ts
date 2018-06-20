@@ -110,7 +110,7 @@ export class CreateAuthPage {
           this.labelButton = 'Ok';
           this.showLoad = false;
 
-          this.presentToast('Conta criada com sucesso! =D', 1500, 'bottom', 'valid');
+          this.presentToast('Conta criada com sucesso! =D', 1500, 'top', 'valid');
 
           this.canLeave = true;
 
