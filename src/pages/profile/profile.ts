@@ -55,6 +55,9 @@ export class ProfilePage {
 
     try {
 
+      load.present();
+
+
       const options: CameraOptions = {
         quality: 100,
         destinationType: this.camera.DestinationType.DATA_URL,
@@ -72,7 +75,6 @@ export class ProfilePage {
       const pictures = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
       pictures.putString(image, 'data_url').then(() => {
 
-        load.present();
 
         const pathReference = pictures;
 

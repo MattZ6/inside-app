@@ -12,7 +12,7 @@ import { HeaderColor } from '@ionic-native/header-color';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: string;
+  rootPage: string = 'TutorialPage';
 
   constructor(platform: Platform, splashScreen: SplashScreen, statusBar: StatusBar, screen: ScreenOrientation, headerColor: HeaderColor) {
 
@@ -20,17 +20,17 @@ export class MyApp {
     firebase.initializeApp(FIREBASE_CONFIG);
 
 
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+    // const unsubscribe = firebase.auth().onAuthStateChanged(user => {
 
-      if (!user) {
-        this.rootPage = 'WelcomePage';
-        unsubscribe();
-      } else {
-        this.rootPage = 'MainPage';
-        unsubscribe();
-      }
+    //   if (!user) {
+    //     this.rootPage = 'WelcomePage';
+    //     unsubscribe();
+    //   } else {
+    //     this.rootPage = 'MainPage';
+    //     unsubscribe();
+    //   }
 
-    });
+    // });
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -38,7 +38,7 @@ export class MyApp {
       splashScreen.hide();
       statusBar.hide();
       headerColor.tint('#31ACFF');
-      screen.lock(screen.ORIENTATIONS.PORTRAIT);
+      //screen.lock(screen.ORIENTATIONS.PORTRAIT);
     });
   }
 }
