@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StatusBar } from '@ionic-native/status-bar';
-import { IonicPage, NavController, ToastController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, Platform, LoadingController } from 'ionic-angular';
 import firebase from 'firebase';
 import { Profile } from './../../models/Profile';
 
@@ -31,7 +31,7 @@ export class LoginPage {
 
   isCreating: boolean;
 
-  constructor(private toast: ToastController, private platform: Platform, private statusBar: StatusBar, public navCtrl: NavController) {
+  constructor(private toast: ToastController, private loadingCtrl: LoadingController, private platform: Platform, private statusBar: StatusBar, public navCtrl: NavController) {
 
   }
 
@@ -126,7 +126,13 @@ export class LoginPage {
 
         this.buttonLabel = 'Ok';
         this.hideLabel = false;
- 
+
+        let load = this.loadingCtrl.create({
+          content: 'Vamos lá! :D'
+        });
+
+        load.present();
+
         firebase.database().ref('/Profile/').child(firebase.auth().currentUser.uid).once('value', userProfile => {
           this.userProfile = userProfile.val();
         }).then(() => {
@@ -135,6 +141,7 @@ export class LoginPage {
           } else {
             this.navCtrl.push('NewProfilePage');
           }
+          load.dismiss();
         });
 
       }, error => {

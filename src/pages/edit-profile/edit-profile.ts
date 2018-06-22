@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Profile } from './../../models/Profile';
 import { ProfileProvider } from '../../providers/profile/profile';
 
@@ -20,7 +20,7 @@ export class EditProfilePage {
   buttonLabel = 'Salvar';
   hideLabel = false;
 
-  constructor(private loadingCtrl: LoadingController, private profileProvider: ProfileProvider, public navCtrl: NavController) {
+  constructor(private loadingCtrl: LoadingController, private toast: ToastController, private profileProvider: ProfileProvider, public navCtrl: NavController) {
   }
 
   ionViewDidLoad() {
@@ -94,7 +94,14 @@ export class EditProfilePage {
       this.isButtonDisabled = false;
       this.isCreating = false;
 
-      this.navCtrl.pop();
+      this.navCtrl.pop().then(() => {
+        this.toast.create({
+          cssClass: 'valid',
+          message: 'Perfil alterado com sucesso!',
+          duration: 1800,
+          position: 'top'
+        }).present();
+      });
 
     })
   }

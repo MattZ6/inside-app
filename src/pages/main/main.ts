@@ -16,9 +16,9 @@ export class MainPage {
   @ViewChild(Slides) slides: Slides;
 
   userProfile = {} as Profile;
-  username: string;
+  pusername: string;
   userPicture: string = 'assets/imgs/user.png';
-  userMessage: string = 'Seja bem-vindo!';
+  userMessage: string = 'Hey! :D';
 
   topicClass: string = 'activity';
   isPlaying: boolean = false;
@@ -89,59 +89,22 @@ export class MainPage {
 
         pathReference.getDownloadURL().then(profilePicture => {
           this.userPicture = profilePicture;
+          load.dismiss();
         });
+      } else {
+        load.dismiss();
       }
 
-      load.dismiss();
+      this.setCattegorie('Necessidades Básicas');
 
-      setTimeout(() => { this.userMessage = 'Clique aqui para ver seu Perfil' }, 2500);
-
-      this.modifiedTopics = this.originalTopics.filter((topic) => {
-
-        this.cattegories = 'basicas';
-
-        return topic.cattegorie == 'Necessidades Básicas';
-
-      });
-
-      this.title = this.modifiedTopics[0].title;
-      this.cattegorie = this.modifiedTopics[0].cattegorie;
+      setTimeout(() => { this.userMessage = 'Clique aqui para ver seu Perfil' }, 3000);
     })
-  }
-
-  ionViewWillEnter() {
-
-    this.disableCattegories();
-    this.isEnableNeeds = 'enable';
-    this.slides.slideTo(0, 500);
-
-    /*
-    *
-    * Para que não exceda o requests
-    * 
-    if (this.userProfile.photoUrl) {
-
-      let load = this.loadingCtrl.create({
-        content: 'Carregando sua foto...'
-      });
-
-      load.present();
-
-      const pathReference = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
-
-      pathReference.getDownloadURL().then(profilePicture => {
-        this.userPicture = profilePicture;
-        load.dismiss();
-      })
-    }
-    */
-
   }
 
   playSound(topic) {
 
     if (this.canVibrate) {
-      this.vibrator.vibrate(180);
+      this.vibrator.vibrate(100);
       this.canVibrate = false;
 
       if (!this.isPlaying) {

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ToastController, Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
+import { IonicPage, NavController, ToastController, LoadingController } from 'ionic-angular';
 import firebase from 'firebase';
 import { Profile } from '../../models/Profile';
 import { ProfileProvider } from '../../providers/profile/profile';
@@ -29,14 +28,8 @@ export class NewProfilePage {
   buttonLabel = 'Criar perfil';
   hideLabel = false;
 
-  constructor(private profileProvider: ProfileProvider, private platform: Platform, private statusBar: StatusBar,
+  constructor(private profileProvider: ProfileProvider, private loadingCtrl: LoadingController,
     private camera: Camera, private toast: ToastController, public navCtrl: NavController) {
-
-    this.platform.ready().then(() => {
-      this.statusBar.styleLightContent();
-      this.statusBar.backgroundColorByHexString('#03A9F4');
-    });
-
   }
 
   ionViewDidLoad() {
@@ -103,6 +96,10 @@ export class NewProfilePage {
 
   async  takePicture() {
 
+    let load = this.loadingCtrl.create({
+      content: 'Adicionando foto de perfil...'
+    });
+
     try {
 
       const options: CameraOptions = {
@@ -122,12 +119,16 @@ export class NewProfilePage {
       const pictures = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
       pictures.putString(image, 'data_url').then(() => {
 
+        load.present();
+
         const pathReference = pictures;
 
         pathReference.getDownloadURL().then(url => {
 
           this.profileProvider.setUserProfilePicture(url).then(() => {
             this.profilePicture = url;
+
+            load.dismiss();
           })
 
 
@@ -137,14 +138,17 @@ export class NewProfilePage {
 
             case 'storage/object_not_found':
               console.log('Este arquivo não existe');
+
               break;
 
             case 'storage/unauthorized':
               console.log('O usuário não tem permissão para acessar este arquivo');
+
               break;
 
             case 'storage/canceled':
-              console.log('O usuário cancelou o upload');
+              console.log('O usuário cancelou o upload do arquivo');
+
               break;
 
           }

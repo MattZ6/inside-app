@@ -19,8 +19,12 @@ page-create-profile {
 
     ion-slides {
       margin-top: 5vh;
+      height: auto;
     }
 
+    ion-slide{
+      height: auto;
+    }
 
     .itemRound {
       border-radius: 5px;

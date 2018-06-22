@@ -22,7 +22,7 @@ export class ProfilePage {
 
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad() {  
 
     let load = this.loadingCtrl.create({
       content: 'Carregando seu perfil...'
@@ -33,24 +33,25 @@ export class ProfilePage {
     this.profileProvider.getUserProfile().on('value', userProfileSnapshot => {
       this.userProfile = userProfileSnapshot.val();
 
-      if (this.userProfile != null) {
-        this.genderIcon = this.userProfile.gender == 'man' ? 'ios-man' : 'ios-woman';
-      }
+      this.genderIcon = this.userProfile.gender == 'man' ? 'ios-man' : 'ios-woman';
 
-      load.dismiss();
+      if (this.userProfile.photoUrl) {
+        const pathReference = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
+        pathReference.getDownloadURL().then(profilePicture => {
+          this.userPicture = profilePicture;
+          load.dismiss();
+        })
+      } else {
+        load.dismiss();
+      }
     })
   }
 
-  ionViewWillEnter() {
-    if (this.userProfile.photoUrl) {
-      const pathReference = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
-      pathReference.getDownloadURL().then(profilePicture => {
-        this.userPicture = profilePicture;
-      })
-    }
-  }
-
   async  takePicture() {
+
+    let load = this.loadingCtrl.create({
+      content: 'Alterando foto de perfil...'
+    });
 
     try {
 
@@ -71,12 +72,16 @@ export class ProfilePage {
       const pictures = firebase.storage().ref(`/pictures/${firebase.auth().currentUser.uid}/profilePicture.jpeg`);
       pictures.putString(image, 'data_url').then(() => {
 
+        load.present();
+
         const pathReference = pictures;
 
         pathReference.getDownloadURL().then(url => {
 
           this.profileProvider.setUserProfilePicture(url).then(() => {
             this.userPicture = url;
+
+            load.dismiss();
           })
 
 
